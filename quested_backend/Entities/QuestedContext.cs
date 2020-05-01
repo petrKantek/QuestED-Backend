@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace quested_backend.Entities
 {
-    public partial class quested_backendContext : DbContext
+    public partial class QuestedContext : DbContext
     {
-        public quested_backendContext()
+        public QuestedContext()
         {
         }
 
-        public quested_backendContext(DbContextOptions<quested_backendContext> options)
+        public QuestedContext(DbContextOptions<QuestedContext> options)
             : base(options)
         {
         }
@@ -27,15 +27,6 @@ namespace quested_backend.Entities
         public virtual DbSet<SchoolOwnsSeason> SchoolOwnsSeason { get; set; }
         public virtual DbSet<Season> Season { get; set; }
         public virtual DbSet<Teacher> Teacher { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseMySQL("server=mysql.liumi.me;port=3306;user=APIApp;password=QEtest2;database=quested_backend");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

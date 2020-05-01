@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using quested_backend.Entities;
 
 namespace quested_backend.Controllers
 {
@@ -17,9 +18,11 @@ namespace quested_backend.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly QuestedContext dbContext;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, QuestedContext dbContext)
         {
+            this.dbContext = dbContext;
             _logger = logger;
         }
 
@@ -34,6 +37,13 @@ namespace quested_backend.Controllers
                     Summary = Summaries[rng.Next(Summaries.Length)]
                 })
                 .ToArray();
+        }
+        
+        [HttpGet("pupil/{id}")]
+        public IEnumerable<Pupil> GetPupil(int id)
+        {
+            var pupils = dbContext.Pupil.Where(pupil => pupil.Id == id).ToList();
+            return pupils;
         }
     }
 }

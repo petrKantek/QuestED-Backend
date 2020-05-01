@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace quested_backend.Entities
 {
-    public partial class Class
+    public class Class
     {
         public Class()
         {

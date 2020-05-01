@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using quested_backend.Data_Access_Layer;
 using quested_backend.Entities;
 
 namespace quested_backend

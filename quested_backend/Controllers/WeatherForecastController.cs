@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using quested_backend.Data_Access_Layer;
 using quested_backend.Entities;
 
 namespace quested_backend.Controllers

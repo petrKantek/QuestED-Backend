@@ -1,8 +1,7 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
+using quested_backend.Entities;
 
-namespace quested_backend.Entities
+namespace quested_backend.Data_Access_Layer
 {
     public partial class QuestedContext : DbContext
     {

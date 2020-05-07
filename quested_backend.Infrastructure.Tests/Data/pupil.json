@@ -1,0 +1,20 @@
+﻿[
+  {
+    "Id" : "1",
+    "FirstName" : "Petr",
+    "PupilInClass" : null,
+    "PupilInCourse" : null
+  },
+  {
+    "Id" : "2",
+    "FirstName" : "Stanislav",
+    "PupilInClass" : null,
+    "PupilInCourse" : null
+  },
+  {
+    "Id" : "3",
+    "FirstName" : "Liu",
+    "PupilInClass" : null,
+    "PupilInCourse" : null
+  }
+]

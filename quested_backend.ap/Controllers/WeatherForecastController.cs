@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
-using quested_backend.Entities;
 using quested_backend.Infrastructure;
 using quested_backend.Infrastructure.Repositories;
 

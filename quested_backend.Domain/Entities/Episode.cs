@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace quested_backend.Entities
+namespace quested_backend.Domain.Entities
 {
     public class Episode
     {
@@ -9,7 +9,8 @@ namespace quested_backend.Entities
         {
             Question = new HashSet<Question>();
         }
-
+        
+        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
         public int Id { get; set; }
         public int SeasonId { get; set; }
         public string Name { get; set; }

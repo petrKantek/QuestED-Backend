@@ -11,8 +11,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using quested_backend.Domain.Entities;
+using quested_backend.Domain.Extensions;
 using quested_backend.Domain.Repositories;
-using quested_backend.Entities;
 using quested_backend.Infrastructure;
 using quested_backend.Infrastructure.Repositories;
 
@@ -30,10 +31,15 @@ namespace quested_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
             
-            services.AddDbContext<QuestedContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddScoped<IRepository<Pupil, int>, EntityFrameworkRepository<Pupil, int>>();
+            services
+                .AddDbContext<QuestedContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")))
+                .AddScoped<IRepository<Pupil, int>, EntityFrameworkRepository<Pupil, int>>()
+                .AddMappers()
+                .AddServices()
+                .AddControllers()
+                .AddValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace quested_backend.Entities
+﻿namespace quested_backend.Domain.Entities
 {
     public partial class PupilInCourseAnswersQuestion
     {

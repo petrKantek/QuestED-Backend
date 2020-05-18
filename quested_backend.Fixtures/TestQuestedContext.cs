@@ -1,11 +1,9 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using quested_backend.Domain.Repositories;
-using quested_backend.Entities;
-using quested_backend.Infrastructure.Tests.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using quested_backend.Domain.Entities;
+using quested_backend.Fixtures.Extensions;
+using quested_backend.Infrastructure;
 
-namespace quested_backend.Infrastructure.Tests
+namespace quested_backend.Fixtures
 {
     public class TestQuestedContext : QuestedContext
     {

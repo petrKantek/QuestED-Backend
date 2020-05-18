@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
-using quested_backend.Entities;
 
 namespace quested_backend.Infrastructure
 {

@@ -1,61 +1,49 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using quested_backend.Entities;
+using quested_backend.Domain.Entities;
+using quested_backend.Fixtures;
 using quested_backend.Infrastructure.Repositories;
 using Xunit;
 using Shouldly;
 
 namespace quested_backend.Infrastructure.Tests
 {
-    public class PupilRepositoryTests
+    public class PupilRepositoryTests : IClassFixture<QuestedContextFactory>
     {
+
+        private readonly EntityFrameworkRepository<Pupil, int> _sut;
+        private readonly TestQuestedContext _context;
+
+        public PupilRepositoryTests(QuestedContextFactory questedContextFactory)
+        {
+            _context = questedContextFactory.ContextInstance;
+            _sut = new EntityFrameworkRepository<Pupil, int>(_context);
+        }
+
         [Fact]
         public async void should_get_data()
         {
-            var options = new DbContextOptionsBuilder<QuestedContext>()
-                .UseInMemoryDatabase(databaseName: "should_get_data")
-                .Options;
-            
-            await using var context = new TestQuestedContext(options);
-            context.Database.EnsureCreated();
-            var sut = new EntityFrameworkRepository<Pupil, int>(context);
-            var result = await sut.GetAllAsync();
-
+            var result = await _sut.GetAllAsync();
             result.ShouldNotBeNull();
         }
 
         [Fact]
         public async void should_be_null_invalid_id()
         {
-            var options = new DbContextOptionsBuilder<QuestedContext>()
-                .UseInMemoryDatabase(databaseName: "should_get_data")
-                .Options;
-            
-            await using var context = new TestQuestedContext(options);
-            context.Database.EnsureCreated();
-            var sut = new EntityFrameworkRepository<Pupil, int>(context);
-            var result = await sut.GetByIdAsync(5);
-
+            var result = await _sut.GetByIdAsync(5);
             result.ShouldBeNull();
         }
         
         [Theory]
-        [InlineData(1)]
+        [InlineData(2)]
         public async void should_return_correct_entity(int id)
         {
-            var options = new DbContextOptionsBuilder<QuestedContext>()
-                .UseInMemoryDatabase(databaseName: "should_get_data")
-                .Options;
-            
-            await using var context = new TestQuestedContext(options);
-            context.Database.EnsureCreated();
-            var sut = new EntityFrameworkRepository<Pupil, int>(context);
-            var result = await sut.GetByIdAsync(id);
+            var result = await _sut.GetByIdAsync(id);
 
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
-            result.Firstname.ShouldBe("Petr");
+            result.Firstname.ShouldBe("Stanislav");
         }
 
         [Fact]
@@ -69,20 +57,16 @@ namespace quested_backend.Infrastructure.Tests
                 PupilInCourse = null
             };
             
-            var options = new DbContextOptionsBuilder<QuestedContext>()
-                .UseInMemoryDatabase(databaseName: "should_get_data")
-                .Options;
+            _sut.Create(testPupil);
+            await _sut.UnitOfWork.SaveEntitiesAsync();
             
-            await using var context = new TestQuestedContext(options);
-            context.Database.EnsureCreated();
-            var sut = new EntityFrameworkRepository<Pupil, int>(context);
-            sut.Create(testPupil);
-            await sut.UnitOfWork.SaveEntitiesAsync();
-            context.Pupil.FirstOrDefault(_ => _.Id == testPupil.Id).ShouldNotBeNull();
+            _context.Pupil
+                .FirstOrDefault(_ => _.Id == testPupil.Id)
+                .ShouldNotBeNull();
         }
 
         [Fact]
-        public async void should_update_pupil()
+        public void should_update_pupil()
         {
             var testPupil = new Pupil()
             {
@@ -91,20 +75,10 @@ namespace quested_backend.Infrastructure.Tests
                 PupilInClass = null,
                 PupilInCourse = null,
             };
-            
-            var options = new DbContextOptionsBuilder<QuestedContext>()
-                .UseInMemoryDatabase(databaseName: "should_get_data")
-                .Options;
-            
-            await using var context = new TestQuestedContext(options);
-            context.Database.EnsureCreated();
-            var sut = new EntityFrameworkRepository<Pupil, int>(context);
 
-            sut.Update(testPupil);
+               var result = _sut.Update(testPupil);
 
-            context.Pupil.FirstOrDefaultAsync(x => x.Id == testPupil.Id)
-                .Result?.Firstname
-                .ShouldBe("Tomas");
+           result.Firstname.ShouldBe("Tomas");
         }
     }
 }

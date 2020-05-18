@@ -18,9 +18,5 @@
       <ProjectReference Include="..\quested_backend.Infrastructure\quested_backend.Infrastructure.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Data Access Layer\DAL" />
-    </ItemGroup>
-
 
 </Project>

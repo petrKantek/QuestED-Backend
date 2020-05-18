@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace quested_backend.Entities
+namespace quested_backend.Domain.Entities
 {
     public partial class Season
     {
@@ -12,6 +12,7 @@ namespace quested_backend.Entities
             SchoolOwnsSeason = new HashSet<SchoolOwnsSeason>();
         }
 
+        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
         public int Id { get; set; }
         public string Name { get; set; }
 

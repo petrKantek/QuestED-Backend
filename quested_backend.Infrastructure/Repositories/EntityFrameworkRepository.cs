@@ -29,7 +29,13 @@ namespace quested_backend.Infrastructure.Repositories
 
         public async Task<TEntity> GetByIdAsync(TKey id)
         {
-            return await _context.Set<TEntity>().FindAsync(id);
+           var item = 
+               await _context.Set<TEntity>().FindAsync(id);
+
+           if (item == null) return null;
+           
+           _context.Entry(item).State = EntityState.Detached; //TODO not sure if good practise, might do problems later
+           return item;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()

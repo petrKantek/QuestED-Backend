@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using quested_backend.Domain.Responses;
 
-namespace quested_backend.Entities
+namespace quested_backend.Domain.Entities
 {
     public class Class
     {
@@ -10,11 +11,12 @@ namespace quested_backend.Entities
             PupilInClass = new HashSet<PupilInClass>();
         }
 
+        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
         public int Id { get; set; }
         public int TeacherId { get; set; }
         public string Name { get; set; }
 
-        public virtual Teacher Teacher { get; set; }
+        public Teacher Teacher { get; set; }
         public virtual ICollection<PupilInClass> PupilInClass { get; set; }
     }
 }

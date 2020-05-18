@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace quested_backend.Entities
+namespace quested_backend.Domain.Entities
 {
     public partial class Course
     {
@@ -10,6 +10,7 @@ namespace quested_backend.Entities
             PupilInCourse = new HashSet<PupilInCourse>();
         }
 
+        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
         public int Id { get; set; }
         public int TeacherId { get; set; }
         public int CourseId { get; set; }

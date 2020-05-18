@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
-namespace quested_backend.Infrastructure.Tests.Extensions
+namespace quested_backend.Fixtures.Extensions
 {
     public static class ModelBuilderExtensions
     {

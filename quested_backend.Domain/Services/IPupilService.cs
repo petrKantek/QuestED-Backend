@@ -11,6 +11,6 @@ namespace quested_backend.Domain.Services
         Task<PupilResponse> GetPupilAsync(GetPupilRequest request);
         Task<PupilResponse> AddPupilAsync(AddPupilRequest request);
         Task<PupilResponse> EditPupilAsync(EditPupilRequest request);
-     //   Task<PupilResponse> DeleteItemAsync(DeletePupilRequest request);
+     // TODO  soft deletion - Task<PupilResponse> DeleteItemAsync(DeletePupilRequest request); 
     }
 }

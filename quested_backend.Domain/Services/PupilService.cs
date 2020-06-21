@@ -12,10 +12,10 @@ namespace quested_backend.Domain.Services
 {
     public class PupilService : IPupilService
     {
-        private readonly IRepository<Pupil, int> _pupilRepository;
+        private readonly IRepository< Pupil, int > _pupilRepository;
         private readonly IPupilMapper _pupilMapper;
         
-        public PupilService(IRepository<Pupil, int>  pupilRepository, IPupilMapper pupilMapper)
+        public PupilService(IRepository< Pupil, int >  pupilRepository, IPupilMapper pupilMapper)
         {
             _pupilRepository = pupilRepository;
             _pupilMapper = pupilMapper;
@@ -24,20 +24,24 @@ namespace quested_backend.Domain.Services
         public async Task<IEnumerable<PupilResponse>> GetPupilsAsync()
         {
             var result = await _pupilRepository.GetAllAsync();
-
             return result.Select(x => _pupilMapper.Map(x));
         }
 
         public async Task<PupilResponse> GetPupilAsync(GetPupilRequest request)
         {
-            if (request == null) throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
+            if (request == null) 
+                throw new ArgumentNullException($"Entity is null");
+            if (request.Id <= 0) 
+                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
             var result = await _pupilRepository.GetByIdAsync(request.Id);
             return _pupilMapper.Map(result);
         }
 
         public async Task<PupilResponse> AddPupilAsync(AddPupilRequest request)
         {
+            if (request == null) 
+                throw new ArgumentNullException($"Entity is null");
+            
             var pupil = _pupilMapper.Map(request);
             var result = _pupilRepository.Create(pupil);
 

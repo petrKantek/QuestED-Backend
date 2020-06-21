@@ -11,7 +11,7 @@ namespace quested_backend.Domain.Entities
             Teacher = new HashSet<Teacher>();
         }
 
-        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Name { get; set; }
         public string Country { get; set; }

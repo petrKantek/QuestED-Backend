@@ -23,7 +23,9 @@ namespace quested_backend.Domain.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
             services
-                .AddScoped<IPupilService, PupilService>();
+                .AddScoped<IPupilService, PupilService>()
+                .AddScoped<ISchoolService, SchoolService>()
+                .AddScoped<IClassService, ClassService>();
             
             return services;
         }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 #
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quested_backend.API", "quested_backend.ap\quested_backend.API.csproj", "{A7111893-A294-48EE-B67A-DBE53894E083}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quested_backend.API", "quested_backend.API\quested_backend.API.csproj", "{A7111893-A294-48EE-B67A-DBE53894E083}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quested_backend.Domain", "quested_backend.Domain\quested_backend.Domain.csproj", "{5F14F815-8E40-4C25-AF01-2CDB29F1AC74}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{F6BA291F-2BB3-4A85-8314-9F013E62EEA7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quested_backend.Domain.Tests", "quested_backend.Domain.Tests\quested_backend.Domain.Tests.csproj", "{DBAB7018-5149-4CAE-906D-054627160911}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "quested_backend.API.Tests", "quested_backend.API.Tests\quested_backend.API.Tests.csproj", "{1C2A002D-EF5D-4992-B66D-FEF4079BD124}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,5 +51,9 @@ Global
 		{DBAB7018-5149-4CAE-906D-054627160911}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBAB7018-5149-4CAE-906D-054627160911}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBAB7018-5149-4CAE-906D-054627160911}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C2A002D-EF5D-4992-B66D-FEF4079BD124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C2A002D-EF5D-4992-B66D-FEF4079BD124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C2A002D-EF5D-4992-B66D-FEF4079BD124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2A002D-EF5D-4992-B66D-FEF4079BD124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

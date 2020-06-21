@@ -32,7 +32,7 @@ namespace Domain.Tests
             var sut = new PupilService(_pupilRepository, _pupilMapper);
 
             var result = 
-                await sut.GetItemsAsync();
+                await sut.GetPupilsAsync();
 
             result.ShouldNotBeNull();
         }
@@ -48,7 +48,7 @@ namespace Domain.Tests
             };
 
             var result =
-                await sut.GetItemAsync(pupilRequest);
+                await sut.GetPupilAsync(pupilRequest);
             
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
@@ -59,7 +59,7 @@ namespace Domain.Tests
         public void getItem_with_null_should_throw_exception()
         {
             var sut = new PupilService(_pupilRepository, _pupilMapper);
-            sut.GetItemAsync(null).ShouldThrow<ArgumentNullException>();
+            sut.GetPupilAsync(null).ShouldThrow<ArgumentNullException>();
         }
 
         [Theory]
@@ -72,7 +72,7 @@ namespace Domain.Tests
                 Id = id
             };
 
-            sut.GetItemAsync(pupilRequest).ShouldThrow<ArgumentException>();
+            sut.GetPupilAsync(pupilRequest).ShouldThrow<ArgumentException>();
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace Domain.Tests
             };
 
             var addedPupil =
-                await sut.AddItemAsync(pupil);
+                await sut.AddPupilAsync(pupil);
             
             addedPupil.ShouldNotBeNull();
             addedPupil.Firstname.ShouldBe("Marek");
@@ -104,7 +104,7 @@ namespace Domain.Tests
             };
 
             var editedPupil =
-                await sut.EditItemAsync(editPupil);
+                await sut.EditPupilAsync(editPupil);
             
             editedPupil.ShouldNotBeNull();
             editedPupil.Id.ShouldBe(editPupil.Id);

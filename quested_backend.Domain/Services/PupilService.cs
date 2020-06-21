@@ -21,14 +21,14 @@ namespace quested_backend.Domain.Services
             _pupilMapper = pupilMapper;
         }
 
-        public async Task<IEnumerable<PupilResponse>> GetItemsAsync()
+        public async Task<IEnumerable<PupilResponse>> GetPupilsAsync()
         {
             var result = await _pupilRepository.GetAllAsync();
 
             return result.Select(x => _pupilMapper.Map(x));
         }
 
-        public async Task<PupilResponse> GetItemAsync(GetPupilRequest request)
+        public async Task<PupilResponse> GetPupilAsync(GetPupilRequest request)
         {
             if (request == null) throw new ArgumentNullException($"Entity is null");
             if (request.Id <= 0) throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
@@ -36,7 +36,7 @@ namespace quested_backend.Domain.Services
             return _pupilMapper.Map(result);
         }
 
-        public async Task<PupilResponse> AddItemAsync(AddPupilRequest request)
+        public async Task<PupilResponse> AddPupilAsync(AddPupilRequest request)
         {
             var pupil = _pupilMapper.Map(request);
             var result = _pupilRepository.Create(pupil);
@@ -45,7 +45,7 @@ namespace quested_backend.Domain.Services
             return _pupilMapper.Map(result);
         }
 
-        public async Task<PupilResponse> EditItemAsync(EditPupilRequest request)
+        public async Task<PupilResponse> EditPupilAsync(EditPupilRequest request)
         {
             var existingRecord = _pupilRepository.GetByIdAsync(request.Id);
             if (existingRecord == null)

@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
-using quested_backend.Domain.Repositories;
 using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Responses;
 using quested_backend.Domain.Services;
 using quested_backend.Fixtures;
 using quested_backend.Infrastructure.Repositories;
 using Shouldly;
 using Xunit;
-using Xunit.Abstractions;
 
-namespace Domain.Tests
+namespace Domain.Tests.Services
 {
     public class PupilServiceTests : IClassFixture<QuestedContextFactory>
     {

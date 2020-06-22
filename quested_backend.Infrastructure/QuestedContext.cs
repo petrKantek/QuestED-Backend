@@ -1,17 +1,18 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
 
 namespace quested_backend.Infrastructure
 {
-    public partial class QuestedContext : DbContext, IUnitOfWork
+    public class QuestedContext : IdentityDbContext<User>, IUnitOfWork
     {
         
-        public QuestedContext()
-        {
-        }
+            // public QuestedContext()
+            // {
+            // }
 
         public QuestedContext(DbContextOptions<QuestedContext> options)
             : base(options)
@@ -31,7 +32,7 @@ namespace quested_backend.Infrastructure
         public virtual DbSet<Season> Season { get; set; }
         public virtual DbSet<Teacher> Teacher { get; set; }
         
-        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             await SaveChangesAsync(cancellationToken);
             return true; 
@@ -401,10 +402,11 @@ namespace quested_backend.Infrastructure
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_teacher_school1");
             });
+            base.OnModelCreating(modelBuilder);
         
-            OnModelCreatingPartial(modelBuilder);
+         //   OnModelCreatingPartial(modelBuilder);
         }
         
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+       // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

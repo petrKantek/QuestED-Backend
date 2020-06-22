@@ -5,6 +5,8 @@ using quested_backend.Domain.Services;
 
 namespace quested_backend.Controllers
 {
+    [Route("api/schools")]
+    [ApiController]
     public class SchoolController : ControllerBase
     {
         private readonly ISchoolService _schoolService;

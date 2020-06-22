@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,26 +17,31 @@ using quested_backend.Domain.Extensions;
 using quested_backend.Domain.Repositories;
 using quested_backend.Infrastructure;
 using quested_backend.Infrastructure.Repositories;
+using quested_backend.Infrastructure.Extensions;
 
 namespace quested_backend
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
-
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddControllers();
-            
+
             services
-                .AddDbContext<QuestedContext>(options => options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")))
+                .AddDbContext<QuestedContext>(options =>
+                    options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")))
                 .AddScoped<IRepository<Pupil, int>, EntityFrameworkRepository<Pupil, int>>()
+                .AddScoped<IRepository<School, int>, EntityFrameworkRepository<School, int>>()
+                .AddScoped<IRepository<Class, int>, EntityFrameworkRepository<Class, int>>()
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddTokenAuthentication(Configuration)
                 .AddMappers()
                 .AddServices()
                 .AddControllers()
@@ -53,7 +59,9 @@ namespace quested_backend
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });

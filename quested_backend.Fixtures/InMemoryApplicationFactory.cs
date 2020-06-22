@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using quested_backend.Infrastructure;
 
 namespace quested_backend.Fixtures
@@ -23,6 +24,10 @@ namespace quested_backend.Fixtures
 
                     services.AddScoped<QuestedContext>(serviceProvider =>
                         new TestQuestedContext(options));
+                    
+                    services.Replace(ServiceDescriptor.Scoped(_ =>
+                        new UsersContextFactory().InMemoryUserManager)); //TODO not sure if correct
+                    
                     var sp = services.BuildServiceProvider();
 
                     using var scope = sp.CreateScope();

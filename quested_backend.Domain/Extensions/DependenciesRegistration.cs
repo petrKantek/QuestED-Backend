@@ -25,7 +25,8 @@ namespace quested_backend.Domain.Extensions
             services
                 .AddScoped<IPupilService, PupilService>()
                 .AddScoped<ISchoolService, SchoolService>()
-                .AddScoped<IClassService, ClassService>();
+                .AddScoped<IClassService, ClassService>()
+                .AddScoped<IUserService, UserService>();
             
             return services;
         }

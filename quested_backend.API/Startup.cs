@@ -32,11 +32,14 @@ namespace quested_backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllers();
-
             services
                 .AddDbContext<QuestedContext>(options =>
-                    options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")))
+                    options.UseMySQL(Configuration.GetConnectionString("DefaultConnection"),
+                        serverOptions =>
+                        {
+                            serverOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
+                        }))
+                
                 .AddScoped<IRepository<Pupil, int>, EntityFrameworkRepository<Pupil, int>>()
                 .AddScoped<IRepository<School, int>, EntityFrameworkRepository<School, int>>()
                 .AddScoped<IRepository<Class, int>, EntityFrameworkRepository<Class, int>>()

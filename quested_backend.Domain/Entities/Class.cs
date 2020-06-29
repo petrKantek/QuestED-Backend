@@ -4,15 +4,12 @@ using quested_backend.Domain.Responses;
 
 namespace quested_backend.Domain.Entities
 {
-    public class Class
+    public class Class : BaseEntity
     {
         public Class()
         {
             PupilInClass = new HashSet<PupilInClass>();
         }
-
-        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
-        public int Id { get; set; }
         public int TeacherId { get; set; }
         public string Name { get; set; }
 

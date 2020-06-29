@@ -10,8 +10,8 @@ namespace quested_backend.Domain.Requests.School
         
         public string Country { get; set; }
         
-        public virtual ICollection<int> SchoolOwnsSeasonIds { get; set; }
-        
-        public virtual ICollection<int> TeacherIds { get; set; }
+        // public virtual ICollection<int> SchoolOwnsSeasonIds { get; set; }
+        //
+        // public virtual ICollection<int> TeacherIds { get; set; }
     }
 }

@@ -1,0 +1,29 @@
+﻿[
+  {
+    "id" : 1,
+    "firstname" : "Jim",
+    "lastname" : "Rogers",
+    "SchoolId" : 1,
+    "School" : null,
+    "Class" : null,
+    "Course" : null
+  },
+  {
+    "id" : 2,
+    "firstname" : "Alexandria",
+    "lastname" : "Cortez",
+    "SchoolId" : 2,
+    "School" : null,
+    "Class" : null,
+    "Course" : null
+  },
+  {
+    "id" : 3,
+    "firstname" : "Anne",
+    "lastname" : "Parson",
+    "SchoolId" : 1,
+    "School" : null,
+    "Class" : null,
+    "Course" : null
+  }
+]

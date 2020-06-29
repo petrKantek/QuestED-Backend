@@ -1,0 +1,29 @@
+﻿[
+  {
+    "id" : 1,
+    "name" : "math",
+    "TeacherId" : 3,
+    "SeasonId" : 1,
+    "Season" : null,
+    "Teacher" : null,
+    "PupilInCourse" : null
+  },
+  {
+    "id" : 2,
+    "name" : "programming",
+    "TeacherId" : 2,
+    "SeasonId" : 1,
+    "Season" : null,
+    "Teacher" : null,
+    "PupilInCourse" : null
+  },
+  {
+    "id" : 3,
+    "name" : "history",
+    "TeacherId" : 1,
+    "SeasonId" : 1,
+    "Season" : null,
+    "Teacher" : null,
+    "PupilInCourse" : null
+  }
+]

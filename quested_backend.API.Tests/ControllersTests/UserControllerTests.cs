@@ -10,7 +10,7 @@ using quested_backend.Fixtures;
 using Shouldly;
 using Xunit;
 
-namespace quested_backend.API.Tests
+namespace quested_backend.API.Tests.ControllersTests
 {
     /// <summary>
     /// Tests correct sign-in, sign-up process on the User Controller

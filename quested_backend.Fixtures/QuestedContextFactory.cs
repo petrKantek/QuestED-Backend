@@ -13,7 +13,11 @@ namespace quested_backend.Fixtures
         public readonly ISchoolMapper SchoolMapper;
         public readonly ITeacherMapper TeacherMapper;
         public readonly IClassMapper ClassMapper;
+        public readonly ICourseMapper CourseMapper;
 
+        /// <summary>
+        /// Produces TestQuestedContexts
+        /// </summary>
         public QuestedContextFactory()
         {
             var contextOptions = new DbContextOptionsBuilder<QuestedContext>()
@@ -26,6 +30,7 @@ namespace quested_backend.Fixtures
             SchoolMapper = new SchoolMapper();
             TeacherMapper = new TeacherMapper(SchoolMapper);
             ClassMapper = new ClassMapper(TeacherMapper);
+            CourseMapper = new CourseMapper(); //TODO Properly define course mapper
         }
         
         private void EnsureCreation(DbContextOptions<QuestedContext> contextOptions) 

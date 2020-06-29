@@ -26,8 +26,9 @@ namespace quested_backend.Domain.Mappers
             
             var school = new School
             {
+                Id = request.Id,
                 Name = request.Name,
-                Country = request.Country
+                Country = request.Country,
             };
 
             return school;

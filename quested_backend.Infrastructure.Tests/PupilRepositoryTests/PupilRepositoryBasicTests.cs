@@ -1,24 +1,22 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using quested_backend.Domain.Entities;
 using quested_backend.Fixtures;
 using quested_backend.Infrastructure.Repositories;
-using Xunit;
 using Shouldly;
+using Xunit;
 
-namespace quested_backend.Infrastructure.Tests
+namespace quested_backend.Infrastructure.Tests.PupilRepositoryTests
 {
-    public class PupilRepositoryTests : IClassFixture<QuestedContextFactory>
+    public class PupilRepositoryBasicTests : IClassFixture<QuestedContextFactory>
     {
-
-        private readonly EntityFrameworkRepository<Pupil, int> _sut;
+        private readonly PupilRepository _sut;
         private readonly TestQuestedContext _context;
 
-        public PupilRepositoryTests(QuestedContextFactory questedContextFactory)
+        public PupilRepositoryBasicTests(QuestedContextFactory questedContextFactory)
         {
             _context = questedContextFactory.ContextInstance;
-            _sut = new EntityFrameworkRepository<Pupil, int>(_context);
+            _sut = new PupilRepository(_context);
         }
 
         [Fact]
@@ -29,17 +27,17 @@ namespace quested_backend.Infrastructure.Tests
         }
 
         [Fact]
-        public async void should_be_null_invalid_id()
+        public async Task should_be_null_invalid_id()
         {
-            var result = await _sut.GetByIdAsync(5);
+            var result = await _sut.ReadOnlyGetByIdAsync(5);
             result.ShouldBeNull();
         }
         
         [Theory]
         [InlineData(2)]
-        public async void should_return_correct_entity(int id)
+        public async Task should_return_correct_entity(int id)
         {
-            var result = await _sut.GetByIdAsync(id);
+            var result = await _sut.ReadOnlyGetByIdAsync(id);
 
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
@@ -76,7 +74,7 @@ namespace quested_backend.Infrastructure.Tests
                 PupilInCourse = null,
             };
 
-               var result = _sut.Update(testPupil);
+               var result =  _sut.Update(testPupil);
 
            result.Firstname.ShouldBe("Tomas");
         }

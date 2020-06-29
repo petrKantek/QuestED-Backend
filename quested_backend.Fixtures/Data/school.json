@@ -1,0 +1,23 @@
+﻿[
+  {
+    "id" : 1,
+    "name" : "WU",
+    "country" : "Austria",
+    "SchoolOwnsSeason" : null,
+    "Teacher" : null
+  },
+  {
+    "id" : 2,
+    "name" : "BOKU",
+    "country" : "Austria",
+    "SchoolOwnsSeason" : null,
+    "Teacher" : null
+  },
+  {
+    "id" : 3,
+    "name" : "HauptUni",
+    "country" : "Austria",
+    "SchoolOwnsSeason" : null,
+    "Teacher" : null
+  }
+]

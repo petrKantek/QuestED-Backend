@@ -1,0 +1,44 @@
+﻿[
+  {
+    "CourseId" : 1,
+    "PupilId" : 1,
+    "Course" : null,
+    "Pupil" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "CourseId" : 2,
+    "PupilId" : 1,
+    "Course" : null,
+    "Pupil" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "CourseId" : 1,
+    "PupilId" : 2,
+    "Course" : null,
+    "Pupil" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "CourseId" : 2,
+    "PupilId" : 2,
+    "Course" : null,
+    "Pupil" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "CourseId" : 1,
+    "PupilId" : 3,
+    "Course" : null,
+    "Pupil" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "CourseId" : 2,
+    "PupilId" : 3,
+    "Course" : null,
+    "Pupil" : null,
+    "PupilInCourseAnswersQuestion" : null
+  }
+]

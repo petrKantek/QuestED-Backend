@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.User;
 using quested_backend.Domain.Services;
+using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Controllers
 {

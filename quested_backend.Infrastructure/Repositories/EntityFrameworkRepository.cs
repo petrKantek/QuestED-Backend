@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
 
 namespace quested_backend.Infrastructure.Repositories
 {
-    public class EntityFrameworkRepository<TEntity, TKey> : IRepository<TEntity, TKey> where TEntity : class
+    public class EntityFrameworkRepository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
     {
-        private QuestedContext _context;
+        protected readonly QuestedContext _context;
         public IUnitOfWork UnitOfWork => _context;
 
         public EntityFrameworkRepository(QuestedContext context)
@@ -23,19 +25,25 @@ namespace quested_backend.Infrastructure.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            _context.Entry(entity).State = EntityState.Modified;
+            _context.Set<TEntity>().Update(entity);
             return entity;
         }
 
-        public async Task<TEntity> GetByIdAsync(TKey id)
+        public async Task<TEntity> ReadOnlyGetByIdAsync(int id)
         {
            var item = 
-               await _context.Set<TEntity>().FindAsync(id);
+               await _context.Set<TEntity>()
+                   .AsNoTracking()
+                   .Where(x => x.Id == id)
+                   .FirstOrDefaultAsync();
 
-           if (item == null) return null;
-           
-           _context.Entry(item).State = EntityState.Detached; //TODO not sure if good practise, might do problems later
            return item;
+        }
+
+        public async Task<TEntity> GetByIdAsync(int id)
+        {
+            var item = await _context.Set<TEntity>().FindAsync(id);
+            return item;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllAsync()
@@ -48,9 +56,9 @@ namespace quested_backend.Infrastructure.Repositories
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public void DeleteById(TKey id)
+        public void DeleteById(int id)
         {
-            var entity = GetByIdAsync(id);
+            var entity = ReadOnlyGetByIdAsync(id);
             Delete(entity.Result);
         }
     }

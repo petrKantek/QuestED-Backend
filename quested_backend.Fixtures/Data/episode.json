@@ -1,0 +1,23 @@
+﻿[
+  {
+    "id" : 1,
+    "season_id" : 1,
+    "name" : "SS2020_1",
+    "Season" : null,
+    "Question" : null
+  },
+  {
+    "id" : 2,
+    "season_id" : 1,
+    "name" : "SS2020_2",
+    "Season" : null,
+    "Question" : null
+  },
+  {
+    "id" : 3,
+    "season_id" : 1,
+    "name" : "SS2020_3",
+    "Season" : null,
+    "Question" : null
+  }
+]

@@ -34,6 +34,7 @@ namespace quested_backend.Domain.Mappers
             
             var teacher = new Teacher
             {
+                Id = request.Id,
                 Firstname = request.Firstname,
                 Lastname = request.Lastname,
                 SchoolId = request.SchoolId,

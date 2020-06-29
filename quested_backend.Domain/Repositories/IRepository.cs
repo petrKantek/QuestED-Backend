@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using quested_backend.Domain.Entities;
 
 namespace quested_backend.Domain.Repositories
 {
-    public interface IRepository <TEntity, TKey> where TEntity : class
+    public interface IRepository <TEntity> where TEntity : class
     {
         IUnitOfWork UnitOfWork { get; }
 
@@ -12,12 +13,14 @@ namespace quested_backend.Domain.Repositories
 
         TEntity Update(TEntity entity);
 
-        Task<TEntity> GetByIdAsync(TKey id);
+        Task<TEntity> GetByIdAsync(int id);
+        
+        Task<TEntity> ReadOnlyGetByIdAsync(int id);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 
         void Delete(TEntity entity);
 
-        void DeleteById(TKey id);
+        void DeleteById(int id);
     }
 }

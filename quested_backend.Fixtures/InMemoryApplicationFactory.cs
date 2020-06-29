@@ -12,6 +12,11 @@ namespace quested_backend.Fixtures
     public class InMemoryApplicationFactory<TStartup> :
         WebApplicationFactory<TStartup> where TStartup : class
     {
+        /// <summary>
+        /// Configures an http client running in separate process
+        /// used for testing controllers
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void ConfigureWebHost(IWebHostBuilder builder)
         {
             builder

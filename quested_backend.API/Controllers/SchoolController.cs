@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.School;
 using quested_backend.Domain.Services;
+using quested_backend.Domain.Services.Interfaces;
+using quested_backend.Filters;
 
 namespace quested_backend.Controllers
 {
@@ -24,6 +26,7 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [SchoolExists]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _schoolService.GetSchoolAsync(
@@ -39,6 +42,7 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [SchoolExists]
         public async Task<IActionResult> Put(int id, EditSchoolRequest schoolRequest)
         {
             schoolRequest.Id = id;

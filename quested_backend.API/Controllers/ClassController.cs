@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.Class;
 using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Domain.Services;
+using quested_backend.Domain.Services.Interfaces;
+using quested_backend.Filters;
 
 namespace quested_backend.Controllers
 {
@@ -25,6 +27,7 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [ClassExists]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _classService.GetClassAsync(
@@ -40,6 +43,7 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [ClassExists]
         public async Task<IActionResult> Put(int id, EditClassRequest classRequest)
         {
             classRequest.Id = id;

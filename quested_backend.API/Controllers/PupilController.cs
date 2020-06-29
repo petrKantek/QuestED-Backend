@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Domain.Services;
+using quested_backend.Domain.Services.Interfaces;
+using quested_backend.Filters;
 
 namespace quested_backend.Controllers
 {
@@ -25,9 +27,10 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [PupilExists]
         public async Task<IActionResult> GetById(int id)
         {
-            var result = await _pupilService.GetPupilAsync(
+            var result = await _pupilService.ReadOnlyGetPupilAsync(
                 new GetPupilRequest{ Id = id });
             return Ok(result);
         }
@@ -40,6 +43,7 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [PupilExists]
         public async Task<IActionResult> Put(int id, EditPupilRequest pupilRequest)
         {
             pupilRequest.Id = id;

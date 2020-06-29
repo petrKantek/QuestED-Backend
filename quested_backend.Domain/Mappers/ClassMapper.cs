@@ -33,8 +33,10 @@ namespace quested_backend.Domain.Mappers
 
             var _class = new Class
             {
+                Id = request.Id,
                 Name = request.Name,
                 TeacherId = request.TeacherId,
+               
             };
 
             return _class;
@@ -48,7 +50,7 @@ namespace quested_backend.Domain.Mappers
             {
                 Id = _class.Id,
                 Name = _class.Name,
-                TeacherId = _class.Id,
+                TeacherId = _class.TeacherId,
                 TeacherResponse = _teacherMapper.Map(_class.Teacher),
                 PupilInClass = _class.PupilInClass
             };

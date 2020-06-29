@@ -1,18 +1,9 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using quested_backend.Domain.Entities;
 using quested_backend.Domain.Extensions;
 using quested_backend.Domain.Repositories;
 using quested_backend.Infrastructure;
@@ -40,10 +31,14 @@ namespace quested_backend
                             serverOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
                         }))
                 
-                .AddScoped<IRepository<Pupil, int>, EntityFrameworkRepository<Pupil, int>>()
-                .AddScoped<IRepository<School, int>, EntityFrameworkRepository<School, int>>()
-                .AddScoped<IRepository<Class, int>, EntityFrameworkRepository<Class, int>>()
                 .AddScoped<IUserRepository, UserRepository>()
+                .AddOpenApiDocument(settings =>
+                {
+                    settings.Title = "Quested API";
+                    settings.DocumentName = "v3";
+                    settings.Version = "v3";
+                })
+                .AddRepositories()
                 .AddTokenAuthentication(Configuration)
                 .AddMappers()
                 .AddServices()
@@ -60,14 +55,12 @@ namespace quested_backend
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-            
             app.UseAuthentication();
-            
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app.UseOpenApi();
+            app.UseSwaggerUi3();
         }
     }
 }

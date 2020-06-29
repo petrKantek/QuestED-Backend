@@ -22,9 +22,9 @@ namespace quested_backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
      //   private readonly QuestedContext dbContext;
-     private readonly IRepository<Pupil, int> _rep;
+     private readonly IRepository<Pupil> _rep;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<Pupil, int> rep)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<Pupil> rep)
         {
             _logger = logger;
             _rep = rep;
@@ -46,7 +46,7 @@ namespace quested_backend.Controllers
         [HttpGet("pupil/{id}")]
         public IEnumerable<Pupil> GetPupil(int id)
         {
-            var pupils = _rep.GetByIdAsync(id).Result;
+            var pupils = _rep.ReadOnlyGetByIdAsync(id).Result;
             var res = new List<Pupil>();
             res.Add(pupils);
             return res;

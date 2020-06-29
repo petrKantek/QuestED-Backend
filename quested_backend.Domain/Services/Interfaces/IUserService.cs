@@ -1,10 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
 using quested_backend.Domain.Requests.User;
 using quested_backend.Domain.Responses;
 
-namespace quested_backend.Domain.Services
+namespace quested_backend.Domain.Services.Interfaces
 {
     public interface IUserService
     {

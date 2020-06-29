@@ -11,8 +11,8 @@ namespace quested_backend.Infrastructure.SchemaDefinitions
         {
             builder.ToTable("course");
         
-            builder.HasIndex(e => e.CourseId)
-                .HasName("fk_course_instance_course1_idx");
+            builder.HasIndex(e => e.SeasonId)
+                .HasName("fk_course_instance_season1_idx");
         
             builder.HasIndex(e => e.TeacherId)
                 .HasName("fk_course_instance_teacher1_idx");
@@ -21,8 +21,8 @@ namespace quested_backend.Infrastructure.SchemaDefinitions
                 .HasColumnName("id")
                 .HasColumnType("int(11)");
         
-            builder.Property(e => e.CourseId)
-                .HasColumnName("course_id")
+            builder.Property(e => e.SeasonId)
+                .HasColumnName("season_id")
                 .HasColumnType("int(11)");
         
             builder.Property(e => e.Name)
@@ -34,11 +34,11 @@ namespace quested_backend.Infrastructure.SchemaDefinitions
                 .HasColumnName("teacher_id")
                 .HasColumnType("int(11)");
         
-            builder.HasOne(d => d.CourseNavigation)
+            builder.HasOne(d => d.Season)
                 .WithMany(p => p.Course)
-                .HasForeignKey(d => d.CourseId)
+                .HasForeignKey(d => d.SeasonId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("fk_course_instance_course1");
+                .HasConstraintName("fk_course_instance_season1");
         
             builder.HasOne(d => d.Teacher)
                 .WithMany(p => p.Course)

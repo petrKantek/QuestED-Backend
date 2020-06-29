@@ -7,11 +7,9 @@ using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Fixtures;
 using Shouldly;
 using Xunit;
-using Xunit.Sdk;
 
-namespace quested_backend.API.Tests
+namespace quested_backend.API.Tests.ControllersTests
 {
-    //TODO Why the fuck xunit runner doesnt discover these tests
     public class PupilControllerTests : IClassFixture<InMemoryApplicationFactory<Startup>>
     {
         private readonly InMemoryApplicationFactory<Startup> _factory;
@@ -82,6 +80,7 @@ namespace quested_backend.API.Tests
                 Encoding.UTF8, "application/json");
             var response = await client.PutAsync($"/api/pupils/{request.Id}", httpsContent);
 
+            response.ShouldNotBeNull();
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();

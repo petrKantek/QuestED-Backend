@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
+using quested_backend.Domain.Repositories;
 using quested_backend.Domain.Requests.Course;
 using quested_backend.Domain.Services;
 using quested_backend.Fixtures;
@@ -13,12 +14,12 @@ namespace Domain.Tests.Services
 {
     public class CourseServiceTest : IClassFixture<QuestedContextFactory>
     {
-        private readonly EntityFrameworkRepository<Course> _courseRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly ICourseMapper _courseMapper;
 
         public CourseServiceTest(QuestedContextFactory questedContextFactory)
         {
-            _courseRepository = new EntityFrameworkRepository<Course>(questedContextFactory.ContextInstance);
+            _courseRepository = new CourseRepository(questedContextFactory.ContextInstance);
             _courseMapper = questedContextFactory.CourseMapper;
         }
         

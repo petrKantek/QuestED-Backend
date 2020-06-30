@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
 using quested_backend.Domain.Requests.Course;
@@ -11,12 +10,14 @@ using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services
 {
+    using Marks = Task<IEnumerable<KeyValuePair<int, IEnumerable<int>>>>;
+    using AvgMark = Task<IEnumerable<KeyValuePair<int, double>>>;
     public class CourseService : ICourseService
     {
-        private readonly IRepository< Course > _courseRepository;
+        private readonly ICourseRepository _courseRepository;
         private readonly ICourseMapper _courseMapper;
 
-        public CourseService(IRepository<Course> courseRepository, ICourseMapper courseMapper)
+        public CourseService(ICourseRepository courseRepository, ICourseMapper courseMapper)
         {
             _courseRepository = courseRepository;
             _courseMapper = courseMapper;
@@ -72,6 +73,27 @@ namespace quested_backend.Domain.Services
 
             await _courseRepository.UnitOfWork.SaveChangesAsync();
             return _courseMapper.Map(result);
+        }
+
+        public async Marks GetScoresOfAllPupils(int courseId)
+        {
+            var course = await _courseRepository.GetCourseWithAnswers(courseId);
+
+            var scores = course.PupilInCourse
+                .ToDictionary( pupil => pupil.PupilId, pupil =>
+                    pupil.PupilInCourseAnswersQuestion
+                        .Select(pupilAnswer => pupilAnswer.AchievedPoints));
+
+            return scores;
+        }
+
+        public async AvgMark GetAvgScoreOfPupils(int courseId)
+        {
+            var marks = await GetScoresOfAllPupils(courseId);
+
+            return marks
+                .Select(pupil => 
+                    new KeyValuePair<int, double>(pupil.Key, pupil.Value.Average()));
         }
     }
 }

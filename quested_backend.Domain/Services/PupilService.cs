@@ -69,11 +69,12 @@ namespace quested_backend.Domain.Services
             }
             
             var entity = _pupilMapper.Map(request);
-            
             var result = _pupilRepository.Update(entity);
             
             await _pupilRepository.UnitOfWork.SaveChangesAsync();
             return _pupilMapper.Map(result); 
         }
+        
+        // public async Task<IEnumerable<int>> Get
     }
 }

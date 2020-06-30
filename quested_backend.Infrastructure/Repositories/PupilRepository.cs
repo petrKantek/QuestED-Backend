@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using quested_backend.Domain.Entities;
@@ -11,15 +12,19 @@ namespace quested_backend.Infrastructure.Repositories
         public PupilRepository(QuestedContext context) : base(context)
             { }
 
-        public new async Task<Pupil> GetByIdAsync(int id)
+        public new async Task<Pupil> GetByIdAsync(int id, IEnumerable<string> includes)
         {
-            var pupil = await _context.Set<Pupil>()
-                .Include(x => x.PupilInClass)
-                .Include(x => x.PupilInCourse)
-                .Where(x => x.Id == id)
-                .FirstOrDefaultAsync();
+            var pupil = _context.Set<Pupil>();
+
+            foreach (var incl in includes)
+            {
+                pupil.Include(incl);
+            }    
+                // .Include(x => x.PupilInClass)
+                // .Include(x => x.PupilInCourse)
+              //  .FirstOrDefaultAsync(x => x.Id == id);
             
-            return pupil;
+            return await pupil.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public new async Task<Pupil> ReadOnlyGetByIdAsync(int id)
@@ -33,6 +38,17 @@ namespace quested_backend.Infrastructure.Repositories
                     .FirstOrDefaultAsync();
 
             return item;
+        }
+
+        public async Task<Pupil> GetPupilWithAnswers(int pupilId)
+        {
+            var answers = await _context.Set<Pupil>()
+                .Include(pupil => pupil.PupilInCourse)
+                .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                .Where(pupil => pupil.Id == pupilId)
+                .FirstOrDefaultAsync();
+
+            return answers;
         }
     }
 }

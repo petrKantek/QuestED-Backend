@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Domain.Requests.Teacher;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
@@ -12,7 +13,6 @@ namespace quested_backend.Controllers
     public class TeacherController : ControllerBase
     {
         private readonly ITeacherService _teacherService;
-
         public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
@@ -59,6 +59,12 @@ namespace quested_backend.Controllers
         {
             await _teacherService.AddPupilToClass(request);
             return Ok();
+        }
+
+        public async Task<IActionResult> GetPupilScore(GetPupilScoreRequest request)
+        {
+            var score = await _teacherService.GetPupilScore(request);
+            return Ok(score);
         }
     }
 }

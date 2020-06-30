@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
+using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Domain.Requests.Teacher;
 using quested_backend.Domain.Responses;
 using quested_backend.Domain.Services.Interfaces;
@@ -80,11 +81,28 @@ namespace quested_backend.Domain.Services
             return _teacherMapper.Map(result); 
         }
 
+        public async Task<int> GetPupilScore(GetPupilScoreRequest request)
+        {
+            if (request == null)  
+                throw new ArgumentNullException();
+            
+            var primaryKey = new[]
+            {
+                request.CourseId, request.PupilId, request.QuestionId, 
+                request.EpisodeId, request.SeasonId
+            };
+
+            var score = await _teacherRepository.GetAnswerByPrimaryKey(primaryKey);
+
+            return score.AchievedPoints;
+        }
+
         public async Task GetPupilsScores(int courseId, int classId)
         {
            // var teacher = await _teacherRepository.ReadOnlyGetByIdAsync(teacherId);
            // var course = await _courseRepository.ReadOnlyGetByIdAsync(courseId);
            // var pupils = course.PupilInCourse;
+           
         }
 
         public async Task EditScore(EditScoreRequest request) 
@@ -134,6 +152,5 @@ namespace quested_backend.Domain.Services
 
             await _pupilRepository.UnitOfWork.SaveEntitiesAsync();
         }
-        
     }
 }

@@ -13,8 +13,8 @@ namespace quested_backend.Domain.Services.Interfaces
         Task<TeacherResponse> AddTeacherAsync(AddTeacherRequest request);
         Task<TeacherResponse> EditTeacherAsync(EditTeacherRequest request);
         Task GetPupilsScores(int teacherId, int classId);
-        Task ChangeScore(int pupilId);
-        Task AddPupilToClass(int pupilId, int classId);
+        Task EditScore(EditScoreRequest request);
+        Task AddPupilToClass(AddPupilToClassRequest request);
         //TODO Task ImportLogFile();
         //TODO ChangeRFID();
         //TODO GetStatistics();

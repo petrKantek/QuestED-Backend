@@ -6,12 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.User;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
+using quested_backend.Filters;
 
 namespace quested_backend.Controllers
 {
     [Authorize]
     [ApiController]
     [Route("api/user")]
+    [JsonException]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

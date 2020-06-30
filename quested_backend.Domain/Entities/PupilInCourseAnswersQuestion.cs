@@ -7,7 +7,7 @@
         public int QuestionId { get; set; }
         public int QuestionEpisodeId { get; set; }
         public int QuestionEpisodeSeasonId { get; set; }
-        public string AchievedPoints { get; set; }
+        public int AchievedPoints { get; set; }
 
         public virtual PupilInCourse PupilInCourse { get; set; }
         public virtual Question Question { get; set; }

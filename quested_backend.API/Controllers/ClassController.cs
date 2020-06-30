@@ -10,6 +10,7 @@ namespace quested_backend.Controllers
 {
     [Route("api/classes")]
     [ApiController]
+    [JsonException]
     public class ClassController : ControllerBase
     {
         private readonly IClassService _classService;

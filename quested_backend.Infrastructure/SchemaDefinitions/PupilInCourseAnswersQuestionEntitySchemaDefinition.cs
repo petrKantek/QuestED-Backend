@@ -44,8 +44,7 @@ namespace quested_backend.Infrastructure.SchemaDefinitions
         
             builder.Property(e => e.AchievedPoints)
                     .HasColumnName("achieved_points")
-                    .HasMaxLength(45)
-                    .IsUnicode(false);
+                    .HasColumnType("int(11)");
         
             builder.HasOne(d => d.PupilInCourse)
                     .WithMany(p => p.PupilInCourseAnswersQuestion)

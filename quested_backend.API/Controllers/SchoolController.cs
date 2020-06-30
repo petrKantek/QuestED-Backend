@@ -9,6 +9,7 @@ namespace quested_backend.Controllers
 {
     [Route("api/schools")]
     [ApiController]
+    [JsonException]
     public class SchoolController : ControllerBase
     {
         private readonly ISchoolService _schoolService;

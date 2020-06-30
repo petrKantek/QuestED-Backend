@@ -13,15 +13,15 @@ namespace quested_backend.Domain.Services
 {
     public class TeacherService : ITeacherService
     {
-        private readonly IRepository<Teacher> _teacherRepository;
-        private readonly IRepository<Course> _courseRepository;
+        private readonly ITeacherRepository _teacherRepository;
+        private readonly IPupilRepository _pupilRepository;
         private readonly ITeacherMapper _teacherMapper;
 
-        public TeacherService(IRepository<Teacher> teacherRepository, IRepository<Course> courseRepository,
+        public TeacherService(ITeacherRepository teacherRepository, IPupilRepository pupilRepository,
             ITeacherMapper teacherMapper)
         {
             _teacherRepository = teacherRepository;
-            _courseRepository = courseRepository;
+            _pupilRepository = pupilRepository;
             _teacherMapper = teacherMapper;
         }
         
@@ -83,18 +83,57 @@ namespace quested_backend.Domain.Services
         public async Task GetPupilsScores(int courseId, int classId)
         {
            // var teacher = await _teacherRepository.ReadOnlyGetByIdAsync(teacherId);
-           var course = await _courseRepository.ReadOnlyGetByIdAsync(courseId);
-           var pupils = course.PupilInCourse;
+           // var course = await _courseRepository.ReadOnlyGetByIdAsync(courseId);
+           // var pupils = course.PupilInCourse;
         }
 
-        public async Task ChangeScore(int pupilId)
+        public async Task EditScore(EditScoreRequest request) 
         {
-            throw new System.NotImplementedException();
+            if (request == null) 
+                throw new ArgumentNullException();
+            
+            var primaryKey = new int[]
+            {
+                request.CourseId, request.PupilId, request.QuestionId, 
+                request.EpisodeId, request.SeasonId
+            };
+
+            var answer = 
+                await _teacherRepository.GetAnswerByPrimaryKey(primaryKey);
+            
+            if (answer == null)
+            {
+                throw new ArgumentException($"Pupil with id {request.PupilId} in course with id " +
+                                            $"{request.CourseId} did not answer question with id {request.QuestionId}");
+            }
+            answer.AchievedPoints = request.NewScore;
         }
 
-        public async Task AddPupilToClass(int pupilId, int classId)
+        public async Task AddPupilToClass(AddPupilToClassRequest request)
         {
-            throw new System.NotImplementedException();
+            var teacher = await _teacherRepository.GetByIdAsync(request.TeacherId);
+            
+            if (teacher == null)
+                throw new ArgumentNullException();
+
+            var pupil = await _pupilRepository.GetByIdAsync(request.PupilId);
+            
+            if (pupil == null)
+                throw new ArgumentNullException();
+            
+            var _class = teacher.Class.FirstOrDefault(x => x.Id == request.ClassId);
+            
+            if (_class == null)
+                throw new ArgumentNullException();
+            
+            _class.PupilInClass.Add(new PupilInClass
+            {
+                ClassId = request.ClassId,
+                PupilId = request.PupilId
+            });
+
+            await _pupilRepository.UnitOfWork.SaveEntitiesAsync();
         }
+        
     }
 }

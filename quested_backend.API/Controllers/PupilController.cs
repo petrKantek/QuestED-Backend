@@ -9,6 +9,7 @@ namespace quested_backend.Controllers
 {
     [Route("api/pupils")]
     [ApiController]
+    [JsonException]
     public class PupilController : ControllerBase
     {
 

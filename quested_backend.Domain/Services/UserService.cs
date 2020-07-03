@@ -47,8 +47,9 @@ namespace quested_backend.Domain.Services
                 UserName = request.Email,
                 Name = request.Name
             };
+            
             bool result = await _userRepository.SignUpAsync(user,
-                request.Password, cancellationToken);
+                request.Password, request.Role, cancellationToken);
 
             return result ? new UserResponse { Name = request.Name, Email = request.Email } 
                           : null;
@@ -78,8 +79,9 @@ namespace quested_backend.Domain.Services
             {
                 Subject = new ClaimsIdentity(new[]
                     {
-                        new Claim(ClaimTypes.Email, request.Email)
-                      }),
+                        new Claim(ClaimTypes.Email, request.Email),
+                        new Claim(ClaimTypes.Role, request.Role)
+                    }),
                 Expires = DateTime.UtcNow.AddDays(_authenticationSettings.ExpirationDays),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature )

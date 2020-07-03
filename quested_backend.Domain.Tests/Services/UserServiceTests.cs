@@ -18,7 +18,7 @@ namespace Domain.Tests.Services
         {
             _userService = new UserService(usersContextFactory.InMemoryUserManager, 
                 Options.Create(
-                    new AuthenticationSettings{ Secret = "long key-word to be matchched", ExpirationDays = 7 }));
+                    new AuthenticationSettings{ Secret = "long key-word to be matched", ExpirationDays = 7 }));
         }
         
     //     Id = "test_id",

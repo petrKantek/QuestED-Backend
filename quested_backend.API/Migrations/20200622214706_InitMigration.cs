@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using MySql.Data.EntityFrameworkCore.Metadata;
 
+
 namespace quested_backend.Migrations
 {
     public partial class InitMigration : Migration

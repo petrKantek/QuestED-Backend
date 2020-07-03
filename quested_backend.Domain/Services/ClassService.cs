@@ -73,6 +73,5 @@ namespace quested_backend.Domain.Services
             await _classRepository.UnitOfWork.SaveChangesAsync();
             return _classMapper.Map(result);
         }
-        
     }
 }

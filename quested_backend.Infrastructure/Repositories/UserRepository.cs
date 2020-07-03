@@ -24,10 +24,12 @@ namespace quested_backend.Infrastructure.Repositories
             return result.Succeeded;
         }
 
-        public async Task<bool> SignUpAsync(User user, string password, CancellationToken cancellationToken)
+        public async Task<bool> SignUpAsync(User user, string password, string role, CancellationToken cancellationToken)
         {
-            var result = await _userManager.CreateAsync(user, password);
-            return result.Succeeded;
+            
+            var isCreated = await _userManager.CreateAsync(user, password);
+            var hasRole = await _userManager.AddToRoleAsync(user, role);
+            return isCreated.Succeeded && hasRole.Succeeded;
         }
     
         public async Task<User> GetByEmailAsync(string requestEmail, CancellationToken cancellationToken)

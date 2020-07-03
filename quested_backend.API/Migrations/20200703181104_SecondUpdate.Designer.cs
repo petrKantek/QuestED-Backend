@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using quested_backend.Infrastructure;
 
 namespace quested_backend.Migrations
 {
     [DbContext(typeof(QuestedContext))]
-    partial class QuestedContextModelSnapshot : ModelSnapshot
+    [Migration("20200703181104_SecondUpdate")]
+    partial class SecondUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

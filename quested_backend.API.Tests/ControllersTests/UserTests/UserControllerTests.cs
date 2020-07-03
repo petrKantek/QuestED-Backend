@@ -10,7 +10,7 @@ using quested_backend.Fixtures;
 using Shouldly;
 using Xunit;
 
-namespace quested_backend.API.Tests.ControllersTests
+namespace quested_backend.API.Tests.ControllersTests.UserTests
 {
     /// <summary>
     /// Tests correct sign-in, sign-up process on the User Controller
@@ -33,7 +33,8 @@ namespace quested_backend.API.Tests.ControllersTests
             var request = new SignInRequest
             {
                 Email = "test_email@email.com",
-                Password =  "quested"
+                Password =  "quested",
+                Role = "Admin"
             };
             
             var httpContent = new StringContent(
@@ -55,7 +56,8 @@ namespace quested_backend.API.Tests.ControllersTests
             var request = new SignInRequest
             {
                 Email = "test_email@email.com",
-                Password =  "invalid_passwd"
+                Password =  "invalid_passwd",
+                Role = "Admin"
             };
             
             var httpContent = new StringContent(
@@ -76,7 +78,8 @@ namespace quested_backend.API.Tests.ControllersTests
             var signInRequest = new SignInRequest
             {
                 Email = "test_email@email.com",
-                Password =  "quested"
+                Password =  "quested",
+                Role = "Admin"
             };
             var httpContent = new StringContent(
                 JsonConvert.SerializeObject(signInRequest), Encoding.UTF8, "application/json");
@@ -104,7 +107,7 @@ namespace quested_backend.API.Tests.ControllersTests
             var client = _factory.CreateClient();
 
             var signUpRequest = new SignUpRequest()
-                { Email = "samuele.resca@example.com", Password = "P@$$w0rd", Name = "Samuele" };
+                { Email = "samuele.resca@example.com", Password = "P@$$w0rd", Name = "Samuele", Role = "Teacher"};
             var httpContent =
                 new StringContent(JsonConvert.SerializeObject(signUpRequest), Encoding.UTF8, "application/json");
 

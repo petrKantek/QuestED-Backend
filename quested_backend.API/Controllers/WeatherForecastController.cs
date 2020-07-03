@@ -22,9 +22,9 @@ namespace quested_backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
      //   private readonly QuestedContext dbContext;
-     private readonly IRepository<Pupil> _rep;
+         private readonly IPupilRepository _rep;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<Pupil> rep)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IPupilRepository rep)
         {
             _logger = logger;
             _rep = rep;

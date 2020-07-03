@@ -13,7 +13,7 @@ namespace quested_backend.Controllers
     [Authorize]
     [ApiController]
     [Route("api/user")]
-    [JsonException]
+ //   [JsonException]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;

@@ -24,10 +24,11 @@ namespace quested_backend.Domain.Repositories
         /// </summary>
         /// <param name="user">user entity</param>
         /// <param name="password">user's password</param>
+        /// <param name="role">user's role</param>
         /// <param name="cancellationToken">token propagating information whether
         /// sign up task should be cancelled</param>
         /// <returns>true if user was successfully signed up, false otherwise</returns>
-        Task<bool> SignUpAsync(User user, string password, 
+        Task<bool> SignUpAsync(User user, string password, string role,
             CancellationToken cancellationToken = default);
         /// <summary>
         /// Obtains user entity by email

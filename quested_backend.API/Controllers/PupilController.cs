@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Domain.Services;
@@ -8,6 +9,7 @@ using quested_backend.Filters;
 namespace quested_backend.Controllers
 {
     [Route("api/pupils")]
+    [Authorize(Roles = "Teacher")]
     [ApiController]
     [JsonException]
     public class PupilController : ControllerBase

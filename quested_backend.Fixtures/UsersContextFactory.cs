@@ -28,7 +28,7 @@ namespace quested_backend.Fixtures
             {
                 Id = "test_id",
                 Email = "test_email@email.com",
-                Name = "test_user"
+                Name = "test_user",
             };
             user.PasswordHash = _passwordHasher.HashPassword(user, "quested");
             
@@ -65,9 +65,9 @@ namespace quested_backend.Fixtures
                             x.Email == email));
             
             fakeUserService.Setup(x =>
-                    x.SignUpAsync(It.IsAny<User>(), It.IsAny<string>(),
-                        CancellationToken.None))
-                .ReturnsAsync((User user, string password, CancellationToken token) =>
+                    x.SignUpAsync(It.IsAny<User>(), It.IsAny<string>(), 
+                        It.IsAny<string>(), CancellationToken.None))
+                .ReturnsAsync((User user, string password, string role, CancellationToken token) =>
                 {
                     user.PasswordHash = _passwordHasher.HashPassword(user, password);
                     _users.Add(user);

@@ -1,34 +1,33 @@
 ﻿using System;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
-using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Requests.School;
 using quested_backend.Domain.Services;
+using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;
 using quested_backend.Infrastructure.Repositories;
 using Shouldly;
 using Xunit;
 
-namespace Domain.Tests.Services
+namespace Domain.Tests.Services.School
 {
     public class SchoolServiceTest : IClassFixture<QuestedContextFactory>
     {
-        private readonly EntityFrameworkRepository<School> _schoolRepository;
-        private readonly ISchoolMapper _schoolMapper;
+        private readonly ISchoolService _sut;
 
         public SchoolServiceTest(QuestedContextFactory questedContextFactory)
         {
-            _schoolRepository = new EntityFrameworkRepository<School>(questedContextFactory.ContextInstance);
-            _schoolMapper = questedContextFactory.SchoolMapper;
+            var context = questedContextFactory.ContextInstance;
+            var schoolRepository = new SchoolRepository(context);
+            var teacherRepository = new TeacherRepository(context);
+            var schoolMapper = questedContextFactory.SchoolMapper;
+            _sut = new SchoolService(schoolRepository, teacherRepository, schoolMapper);
         }
         
         [Fact]
         public async Task getSchools_should_get_data()
         {
-            var sut = new SchoolService(_schoolRepository, _schoolMapper);
-        
             var result = 
-                await sut.GetSchoolsAsync();
+                await _sut.GetSchoolsAsync();
         
             result.ShouldNotBeNull();
         }
@@ -37,11 +36,10 @@ namespace Domain.Tests.Services
         [InlineData(1)]
         public async Task getSchool_should_get_data(int id)
         {
-            var sut = new SchoolService(_schoolRepository, _schoolMapper);
             var schoolRequest = new GetSchoolRequest { Id = id };
             
             var result =
-                await sut.ReadOnlyGetSchoolAsync(schoolRequest);
+                await _sut.ReadOnlyGetSchoolAsync(schoolRequest);
             
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
@@ -52,8 +50,7 @@ namespace Domain.Tests.Services
         [Fact]
         public void getSchool_with_null_should_throw_exception()
         {
-            var sut = new SchoolService(_schoolRepository, _schoolMapper);
-            sut
+            _sut
                 .ReadOnlyGetSchoolAsync(null).
                 ShouldThrow<ArgumentNullException>();
         }
@@ -62,10 +59,9 @@ namespace Domain.Tests.Services
         [InlineData(-2)]
         public void getSchool_with_negative_id_should_throw_exception(int id)
         {
-            var sut = new SchoolService(_schoolRepository, _schoolMapper);
             var schoolRequest = new GetSchoolRequest { Id = id };
         
-            sut.
+            _sut.
                 ReadOnlyGetSchoolAsync(schoolRequest).
                 ShouldThrow<ArgumentException>();
         }
@@ -73,8 +69,6 @@ namespace Domain.Tests.Services
         [Fact]
         public async Task addSchool_should_add_correct_entity()
         {
-            var sut = new SchoolService(_schoolRepository, _schoolMapper);
-        
             var school = new AddSchoolRequest
             {
                 Name = "Angewandte",    
@@ -84,7 +78,7 @@ namespace Domain.Tests.Services
             };
         
             var addedSchool =
-                await sut.AddSchoolAsync(school);
+                await _sut.AddSchoolAsync(school);
             
             addedSchool.ShouldNotBeNull();
             addedSchool.Name.ShouldBe(school.Name);
@@ -94,8 +88,6 @@ namespace Domain.Tests.Services
         [Fact]
         public async Task editSchool_should_correctly_edit_entity()
         {
-            var sut = new SchoolService(_schoolRepository, _schoolMapper);
-
             var school = new EditSchoolRequest()
             {
                 Id = 3,
@@ -104,7 +96,7 @@ namespace Domain.Tests.Services
             };
 
             var editedSchool =
-                await sut.EditSchoolAsync(school);
+                await _sut.EditSchoolAsync(school);
             
             editedSchool.ShouldNotBeNull();
             editedSchool.Id.ShouldBe(school.Id);

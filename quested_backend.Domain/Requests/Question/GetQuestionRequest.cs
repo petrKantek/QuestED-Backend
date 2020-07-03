@@ -1,7 +1,7 @@
-﻿namespace quested_backend.Domain.Requests.Question
+﻿using quested_backend.Domain.Requests.Common;
+
+namespace quested_backend.Domain.Requests.Question
 {
-    public class GetQuestionRequest
-    {
-        public int Id { get; set; }
-    }
+    public class GetQuestionRequest : GetBaseEntityRequest
+        { }
 }

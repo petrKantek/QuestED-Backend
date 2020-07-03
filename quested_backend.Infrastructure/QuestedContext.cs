@@ -8,11 +8,17 @@ using quested_backend.Infrastructure.SchemaDefinitions;
 
 namespace quested_backend.Infrastructure
 {
+    /// <summary>
+    /// The main entry point of Entity Framework Core
+    /// </summary>
     public class QuestedContext : IdentityDbContext<User>, IUnitOfWork
     {
         public QuestedContext(DbContextOptions<QuestedContext> options)
             : base(options) {}
 
+        /// <summary>
+        /// Collections of entities. Virtual modifier is used to enable lazy loading
+        /// </summary>
         public virtual DbSet<Class> Class { get; set; }
         public virtual DbSet<Course> Course { get; set; }
         public virtual DbSet<Episode> Episode { get; set; }
@@ -26,12 +32,23 @@ namespace quested_backend.Infrastructure
         public virtual DbSet<Season> Season { get; set; }
         public virtual DbSet<Teacher> Teacher { get; set; }
         
+        /// <summary>
+        /// Unit Of Work pattern implementation
+        /// </summary>
+        /// <param name="cancellationToken">token propagating information whether save entities
+        /// task should be cancelled</param>
+        /// <returns>true if saving entities to database was successful</returns>
         public async Task<bool> SaveEntitiesAsync(CancellationToken cancellationToken = default)
         {
             await SaveChangesAsync(cancellationToken);
             return true; 
         }
         
+        /// <summary>
+        /// Models the relations and their relationships in the database.
+        /// Executes extension methods that use Fluent API.
+        /// </summary>
+        /// <param name="modelBuilder">object configuring database</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ClassEntitySchemaDefinition());
@@ -50,8 +67,6 @@ namespace quested_backend.Infrastructure
             modelBuilder.ApplyConfiguration(new TeacherEntitySchemaDefinition());
             
             base.OnModelCreating(modelBuilder);
-            //   OnModelCreatingPartial(modelBuilder);
         }
-        // partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

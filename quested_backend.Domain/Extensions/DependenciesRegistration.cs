@@ -23,7 +23,8 @@ namespace quested_backend.Domain.Extensions
                 .AddSingleton<IPupilMapper, PupilMapper>()
                 .AddSingleton<IClassMapper, ClassMapper>()
                 .AddSingleton<ISchoolMapper, SchoolMapper>()
-                .AddSingleton<ITeacherMapper, TeacherMapper>();
+                .AddSingleton<ITeacherMapper, TeacherMapper>()
+                .AddSingleton<ICourseMapper, CourseMapper>();
 
             return services;
         }
@@ -39,7 +40,9 @@ namespace quested_backend.Domain.Extensions
                 .AddScoped<IPupilService, PupilService>()
                 .AddScoped<ISchoolService, SchoolService>()
                 .AddScoped<IClassService, ClassService>()
-                .AddScoped<IUserService, UserService>();
+                .AddScoped<IUserService, UserService>()
+                .AddScoped<ICourseService, CourseService>()
+                .AddScoped<ITeacherService, TeacherService>();
             
             return services;
         }

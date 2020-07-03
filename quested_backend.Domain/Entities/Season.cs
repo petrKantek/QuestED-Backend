@@ -3,7 +3,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quested_backend.Domain.Entities
 {
-    public partial class Season
+    /// <summary>
+    /// Entity representing Season(semester). Seasons are then further divided into
+    /// episodes(lessons). Each seasons has its collection of courses that are taught
+    /// in the season. 
+    /// </summary>
+    public partial class Season : BaseEntity
     {
         public Season()
         {
@@ -11,11 +16,9 @@ namespace quested_backend.Domain.Entities
             Episode = new HashSet<Episode>();
             SchoolOwnsSeason = new HashSet<SchoolOwnsSeason>();
         }
-
-        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
-        public int Id { get; set; }
         public string Name { get; set; }
-
+        
+        /* relationships */
         public virtual ICollection<Course> Course { get; set; }
         public virtual ICollection<Episode> Episode { get; set; }
         public virtual ICollection<SchoolOwnsSeason> SchoolOwnsSeason { get; set; }

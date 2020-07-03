@@ -16,13 +16,15 @@ namespace quested_backend.Domain.Services
     {
         private readonly ITeacherRepository _teacherRepository;
         private readonly IPupilRepository _pupilRepository;
+        private readonly IQuestionRepository _questionRepository;
         private readonly ITeacherMapper _teacherMapper;
 
         public TeacherService(ITeacherRepository teacherRepository, IPupilRepository pupilRepository,
-            ITeacherMapper teacherMapper)
+            IQuestionRepository questionRepository, ITeacherMapper teacherMapper)
         {
             _teacherRepository = teacherRepository;
             _pupilRepository = pupilRepository;
+            _questionRepository = questionRepository;
             _teacherMapper = teacherMapper;
         }
         
@@ -109,22 +111,22 @@ namespace quested_backend.Domain.Services
         {
             if (request == null) 
                 throw new ArgumentNullException();
-            
-            var primaryKey = new int[]
-            {
-                request.CourseId, request.PupilId, request.QuestionId, 
-                request.EpisodeId, request.SeasonId
-            };
 
-            var answer = 
-                await _teacherRepository.GetAnswerByPrimaryKey(primaryKey);
-            
+            var answers = await _questionRepository
+                .GetAnswerByPrimaryKey(request.QuestionId, request.EpisodeId, request.SeasonId);
+
+            var answer = answers.FirstOrDefault(x => 
+                        x.PupilInCourseCourseId == request.CourseId &&
+                        x.PupilInCoursePupilId == request.PupilId);
+
             if (answer == null)
             {
                 throw new ArgumentException($"Pupil with id {request.PupilId} in course with id " +
                                             $"{request.CourseId} did not answer question with id {request.QuestionId}");
             }
+
             answer.AchievedPoints = request.NewScore;
+            await _questionRepository.UnitOfWork.SaveChangesAsync();
         }
 
         public async Task AddPupilToClass(AddPupilToClassRequest request)

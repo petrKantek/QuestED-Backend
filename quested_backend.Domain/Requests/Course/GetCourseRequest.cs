@@ -1,7 +1,7 @@
-﻿namespace quested_backend.Domain.Requests.Course
+using quested_backend.Domain.Requests.Common;
+
+namespace quested_backend.Domain.Requests.Course
 {
-    public class GetCourseRequest
-    {
-        public int Id { get; set; }
-    }
+    public class GetCourseRequest : GetBaseEntityRequest
+        { }
 }

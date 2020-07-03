@@ -10,8 +10,9 @@ using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services
 {
-    using Marks = Task<IEnumerable<KeyValuePair<int, IEnumerable<int>>>>;
-    using AvgMark = Task<IEnumerable<KeyValuePair<int, double>>>;
+    using Marks = Task<Dictionary<int, List<int>>>;
+    using AvgMark = Task<Dictionary<int, double>>;
+    
     public class CourseService : ICourseService
     {
         private readonly ICourseRepository _courseRepository;
@@ -77,12 +78,12 @@ namespace quested_backend.Domain.Services
 
         public async Marks GetScoresOfAllPupils(int courseId)
         {
-            var course = await _courseRepository.GetCourseWithAnswers(courseId);
+            var course = await _courseRepository.GetByIdAsync(courseId);
 
             var scores = course.PupilInCourse
                 .ToDictionary( pupil => pupil.PupilId, pupil =>
                     pupil.PupilInCourseAnswersQuestion
-                        .Select(pupilAnswer => pupilAnswer.AchievedPoints));
+                        .Select(pupilAnswer => pupilAnswer.AchievedPoints).ToList());
 
             return scores;
         }
@@ -92,8 +93,8 @@ namespace quested_backend.Domain.Services
             var marks = await GetScoresOfAllPupils(courseId);
 
             return marks
-                .Select(pupil => 
-                    new KeyValuePair<int, double>(pupil.Key, pupil.Value.Average()));
+                .ToDictionary(pupil => 
+                    pupil.Key, pupil => pupil.Value.Average());
         }
     }
 }

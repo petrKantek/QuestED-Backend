@@ -30,8 +30,6 @@ namespace quested_backend
                         {
                             serverOptions.MigrationsAssembly(typeof(Startup).Assembly.FullName);
                         }))
-                
-                .AddScoped<IUserRepository, UserRepository>()
                 .AddOpenApiDocument(settings =>
                 {
                     settings.Title = "Quested API";
@@ -42,7 +40,9 @@ namespace quested_backend
                 .AddTokenAuthentication(Configuration)
                 .AddMappers()
                 .AddServices()
-                .AddControllers()
+                .AddControllers().AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                )
                 .AddValidation();
         }
 
@@ -54,13 +54,14 @@ namespace quested_backend
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+           
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
             app.UseOpenApi();
             app.UseSwaggerUi3();
+            app.UseHttpsRedirection();
         }
     }
 }

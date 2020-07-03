@@ -2,6 +2,9 @@
 
 namespace quested_backend.Domain.Requests.Pupil.Validators
 {
+    /// <summary>
+    /// Validator of attributes for edit pupil request
+    /// </summary>
     public class EditPupilRequestValidator : AbstractValidator<EditPupilRequest>
     {
         public EditPupilRequestValidator()

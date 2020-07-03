@@ -15,9 +15,13 @@ namespace quested_backend.Infrastructure.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services
-                .AddScoped<IRepository<Pupil>, EntityFrameworkRepository<Pupil>>()
-                .AddScoped<IRepository<School>, EntityFrameworkRepository<School>>()
-                .AddScoped<IRepository<Class>, EntityFrameworkRepository<Class>>();
+                .AddScoped<IPupilRepository, PupilRepository>()
+                .AddScoped<ICourseRepository, CourseRepository>()
+                .AddScoped<IQuestionRepository, QuestionRepository>()
+                .AddScoped<ISchoolRepository, SchoolRepository>()
+                .AddScoped<ITeacherRepository, TeacherRepository>()
+                .AddScoped<IRepository<Class>, EntityFrameworkRepository<Class>>()
+                .AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

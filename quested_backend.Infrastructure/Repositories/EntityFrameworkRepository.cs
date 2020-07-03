@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using quested_backend.Domain.Entities;
@@ -34,8 +33,7 @@ namespace quested_backend.Infrastructure.Repositories
            var item = 
                await _context.Set<TEntity>()
                    .AsNoTracking()
-                   .Where(x => x.Id == id)
-                   .FirstOrDefaultAsync();
+                   .FirstOrDefaultAsync(x => x.Id == id);
 
            return item;
         }
@@ -58,7 +56,7 @@ namespace quested_backend.Infrastructure.Repositories
 
         public void DeleteById(int id)
         {
-            var entity = ReadOnlyGetByIdAsync(id);
+            var entity = GetByIdAsync(id);
             Delete(entity.Result);
         }
     }

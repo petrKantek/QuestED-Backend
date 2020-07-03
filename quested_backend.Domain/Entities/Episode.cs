@@ -3,18 +3,21 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quested_backend.Domain.Entities
 {
-    public class Episode
+    /// <summary>
+    /// Entity representing Episode. Season has many episodes. Each Episode has
+    /// a name and reference to the season it is a part of. It also has a collection of questions
+    /// that were asked in the episode. 
+    /// </summary>
+    public class Episode : BaseEntity
     {
         public Episode()
         {
             Question = new HashSet<Question>();
         }
-        
-        [DatabaseGenerated((DatabaseGeneratedOption.Identity))]
-        public int Id { get; set; }
-        public int SeasonId { get; set; }
         public string Name { get; set; }
-
+        
+        /* relationships */
+        public int SeasonId { get; set; }
         public virtual Season Season { get; set; }
         public virtual ICollection<Question> Question { get; set; }
     }

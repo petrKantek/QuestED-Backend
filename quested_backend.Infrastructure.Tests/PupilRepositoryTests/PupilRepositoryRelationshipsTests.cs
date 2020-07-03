@@ -68,7 +68,7 @@ namespace quested_backend.Infrastructure.Tests.PupilRepositoryTests
         public async Task should_get_all_answers_of_pupil_in_course()
         {
             var pupil = 
-                await _pupilRep.GetPupilWithAnswers(1);
+                await _pupilRep.GetByIdAsync(1);
 
             var marks = pupil.PupilInCourse
                 .FirstOrDefault(x => x.CourseId == 1)

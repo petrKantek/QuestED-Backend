@@ -9,11 +9,19 @@ using quested_backend.Exceptions;
 
 namespace quested_backend.Filters
 {
+    /// <summary>
+    /// General construction of user-defined attributes
+    /// </summary>
     public class JsonExceptionAttribute : TypeFilterAttribute
     {
         public JsonExceptionAttribute() : base(typeof(HttpCustomExceptionFilterImpl))
             { }
 
+        /// <summary>
+        /// Exception filter. Provides user-defined JSON exception with all necessary
+        /// information about errors. This filter is meant for server-side errors(not user-errors),
+        /// therefore the filter always returns 500 status code. 
+        /// </summary>
         private class HttpCustomExceptionFilterImpl : IExceptionFilter
         {
             private readonly IWebHostEnvironment _env;
@@ -26,6 +34,12 @@ namespace quested_backend.Filters
                 _logger = logger;
             }
 
+            /// <summary>
+            /// On exception action, logs the event id, type of exception, and exception message.
+            /// Also sends a json error to the context's result and sets the response status code to
+            /// 500(Internal Server Error)
+            /// </summary>
+            /// <param name="context">context for exception filters</param>
             public void OnException(ExceptionContext context)
             {
                 var eventId = new EventId(context.Exception.HResult);
@@ -33,10 +47,10 @@ namespace quested_backend.Filters
                 _logger.LogError(eventId, context.Exception, context.Exception.Message);
 
                 var json = new JsonError{ EventId = eventId.Id };
-
-                if (_env.IsDevelopment())
+                
+                if (_env.IsDevelopment()) 
                 {
-                    json.DetailedMessage = context.Exception;
+                    json.DetailedMessage = context.Exception; 
                 }
                 
                 var exceptionObject = new ObjectResult(json)

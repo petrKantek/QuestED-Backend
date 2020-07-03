@@ -8,6 +8,9 @@ using quested_backend.Domain.Repositories;
 
 namespace quested_backend.Fixtures
 {
+    /// <summary>
+    /// In-memory database used for testing user service class 
+    /// </summary>
     public class UsersContextFactory
     {
         private readonly PasswordHasher<User> _passwordHasher;

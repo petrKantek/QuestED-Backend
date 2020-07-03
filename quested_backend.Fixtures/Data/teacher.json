@@ -25,5 +25,14 @@
     "School" : null,
     "Class" : null,
     "Course" : null
+  },
+  {
+    "id" : 4,
+    "firstname" : "Robin",
+    "lastname" : "DiAngelo",
+    "SchoolId" : 3,
+    "School" : null,
+    "Class" : null,
+    "Course" : null
   }
 ]

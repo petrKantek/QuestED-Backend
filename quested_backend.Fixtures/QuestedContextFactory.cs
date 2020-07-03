@@ -33,6 +33,11 @@ namespace quested_backend.Fixtures
             CourseMapper = new CourseMapper(); //TODO Properly define course mapper
         }
         
+        /// <summary>
+        /// Ensures that the database for given context exists. If it does not,
+        /// it will be created
+        /// </summary>
+        /// <param name="contextOptions">configuration of database context</param>
         private void EnsureCreation(DbContextOptions<QuestedContext> contextOptions) 
         {  
             using var context = new TestQuestedContext(contextOptions);

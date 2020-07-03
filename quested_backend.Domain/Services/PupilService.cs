@@ -13,10 +13,10 @@ namespace quested_backend.Domain.Services
 {
     public class PupilService : IPupilService
     {
-        private readonly IRepository< Pupil > _pupilRepository;
+        private readonly IPupilRepository _pupilRepository;
         private readonly IPupilMapper _pupilMapper;
         
-        public PupilService(IRepository< Pupil >  pupilRepository, IPupilMapper pupilMapper)
+        public PupilService(IPupilRepository pupilRepository, IPupilMapper pupilMapper)
         {
             _pupilRepository = pupilRepository;
             _pupilMapper = pupilMapper;

@@ -1,40 +1,34 @@
 ﻿using System;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
-using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.Class;
 using quested_backend.Domain.Requests.Teacher;
 using quested_backend.Domain.Services;
+using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;
 using quested_backend.Infrastructure.Repositories;
 using Shouldly;
 using Xunit;
 
-namespace Domain.Tests.Services
+namespace Domain.Tests.Services.Teacher
 {
     public class TeacherServiceTests : IClassFixture<QuestedContextFactory>
     {
-        private readonly ITeacherRepository _teacherRepository;
-        private readonly IPupilRepository _courseRepository;
-        private readonly ITeacherMapper _teacherMapper;
+        private readonly ITeacherService _sut;
 
         public TeacherServiceTests(QuestedContextFactory questedContextFactory)
         {
-            _teacherRepository = new TeacherRepository(
-                questedContextFactory.ContextInstance);
-            _courseRepository = new PupilRepository(
-                questedContextFactory.ContextInstance);
-            _teacherMapper = questedContextFactory.TeacherMapper;
+            var teacherRepository = new TeacherRepository(questedContextFactory.ContextInstance);
+            var courseRepository = new PupilRepository(questedContextFactory.ContextInstance);
+            var questionRepository = new QuestionRepository(questedContextFactory.ContextInstance);
+            var teacherMapper = questedContextFactory.TeacherMapper;
+            _sut = new TeacherService(teacherRepository, courseRepository, questionRepository, teacherMapper);
         }
         
         [Fact]
         public async Task getTeachers_should_get_data()
         {
-            var sut = new TeacherService(_teacherRepository, _courseRepository, _teacherMapper);
-        
             var result = 
-                await sut.GetTeachersAsync();
+                await _sut.GetTeachersAsync();
         
             result.ShouldNotBeNull();
         }
@@ -43,11 +37,10 @@ namespace Domain.Tests.Services
         [InlineData(1)]
         public async Task getTeacher_should_get_data(int id)
         {
-            var sut = new TeacherService(_teacherRepository, _courseRepository, _teacherMapper);
             var teacherRequest = new GetTeacherRequest { Id = id };
             
             var result =
-                await sut.ReadOnlyGetTeacherAsync(teacherRequest);
+                await _sut.ReadOnlyGetTeacherAsync(teacherRequest);
             
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
@@ -59,8 +52,7 @@ namespace Domain.Tests.Services
         [Fact]
         public void getTeacher_with_null_should_throw_exception()
         {
-            var sut = new TeacherService(_teacherRepository, _courseRepository, _teacherMapper);
-            sut
+            _sut
                 .ReadOnlyGetTeacherAsync(null).
                 ShouldThrow<ArgumentNullException>();
         }
@@ -69,10 +61,9 @@ namespace Domain.Tests.Services
         [InlineData(-2)]
         public void getTeacher_with_negative_id_should_throw_exception(int id)
         {
-            var sut = new TeacherService(_teacherRepository, _courseRepository, _teacherMapper);
             var teacherRequest = new GetTeacherRequest { Id = id };
         
-            sut.
+            _sut.
                 ReadOnlyGetTeacherAsync(teacherRequest).
                 ShouldThrow<ArgumentException>();
         }
@@ -80,15 +71,13 @@ namespace Domain.Tests.Services
         [Fact]
         public async Task addTeacher_should_add_correct_entity()
         {
-            var sut = new TeacherService(_teacherRepository, _courseRepository, _teacherMapper);
-        
             var teacher = new AddTeacherRequest
             {
                 Firstname = "Marek"
             };
         
             var addedTeacher =
-                await sut.AddTeacherAsync(teacher);
+                await _sut.AddTeacherAsync(teacher);
             
             addedTeacher.ShouldNotBeNull();
             addedTeacher.Firstname.ShouldBe("Marek");
@@ -97,8 +86,6 @@ namespace Domain.Tests.Services
         [Fact]
         public async Task editTeacher_should_correctly_edit_entity()
         {
-            var sut = new TeacherService(_teacherRepository, _courseRepository, _teacherMapper);
-
             var teacher = new EditTeacherRequest()
             {
                 Id = 3,
@@ -110,7 +97,7 @@ namespace Domain.Tests.Services
             };
 
             var editedTeacher =
-                await sut.EditTeacherAsync(teacher);
+                await _sut.EditTeacherAsync(teacher);
             
             editedTeacher.ShouldNotBeNull();
             editedTeacher.Id.ShouldBe(teacher.Id);

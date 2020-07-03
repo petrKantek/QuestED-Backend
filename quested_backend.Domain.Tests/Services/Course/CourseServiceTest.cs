@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
 using quested_backend.Domain.Requests.Course;
@@ -10,7 +9,7 @@ using quested_backend.Infrastructure.Repositories;
 using Shouldly;
 using Xunit;
 
-namespace Domain.Tests.Services
+namespace Domain.Tests.Services.Course
 {
     public class CourseServiceTest : IClassFixture<QuestedContextFactory>
     {

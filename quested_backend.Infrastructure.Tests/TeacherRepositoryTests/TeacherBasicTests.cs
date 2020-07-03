@@ -51,7 +51,7 @@ namespace quested_backend.Infrastructure.Tests.TeacherRepositoryTests
         {
             var testTeacher = new Teacher
             {
-                Id = 4,
+                Id = 5,
                 Firstname = "Geralt",
                 Lastname = "Of Rivia",
                 SchoolId = 3,

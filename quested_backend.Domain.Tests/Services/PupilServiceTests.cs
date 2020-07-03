@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
+using quested_backend.Domain.Repositories;
 using quested_backend.Domain.Requests.Pupil;
 using quested_backend.Domain.Services;
 using quested_backend.Fixtures;
@@ -13,12 +14,12 @@ namespace Domain.Tests.Services
 {
     public class PupilServiceTests : IClassFixture<QuestedContextFactory>
     {
-        private readonly EntityFrameworkRepository<Pupil> _pupilRepository;
+        private readonly IPupilRepository _pupilRepository;
         private readonly IPupilMapper _pupilMapper;
 
         public PupilServiceTests(QuestedContextFactory questedContextFactory)
         {
-            _pupilRepository = new EntityFrameworkRepository<Pupil>(questedContextFactory.ContextInstance);
+            _pupilRepository = new PupilRepository(questedContextFactory.ContextInstance);
             _pupilMapper = questedContextFactory.PupilMapper;
         }
 

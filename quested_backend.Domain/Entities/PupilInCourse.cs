@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace quested_backend.Domain.Entities
 {
+    /// <summary>
+    /// Representation of many-to-many relationship between Pupil and Course
+    /// </summary>
     public partial class PupilInCourse
     {
         public PupilInCourse()
@@ -10,6 +13,7 @@ namespace quested_backend.Domain.Entities
             PupilInCourseAnswersQuestion = new HashSet<PupilInCourseAnswersQuestion>();
         }
         
+        /* relationships */
         public int CourseId { get; set; }
         public int PupilId { get; set; }
 

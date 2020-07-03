@@ -1,31 +1,32 @@
-﻿using System.Net.Http;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.Pupil;
+using quested_backend.Domain.Requests.Class;
+using quested_backend.Domain.Requests.Course;
 using quested_backend.Fixtures;
 using Shouldly;
 using Xunit;
 
 namespace quested_backend.API.Tests.ControllersTests
 {
-    public class PupilControllerTests : IClassFixture<InMemoryApplicationFactory<Startup>>
+    public class CourseControllerBasicTests : IClassFixture<InMemoryApplicationFactory<Startup>>
     {
         private readonly InMemoryApplicationFactory<Startup> _factory;
 
-        public PupilControllerTests(InMemoryApplicationFactory<Startup> factory)
+        public CourseControllerBasicTests(InMemoryApplicationFactory<Startup> factory)
         {
             _factory = factory;
         }
 
         [Theory]
-        [InlineData("/api/pupils")]
+        [InlineData("/api/courses")]
         public async Task get_should_return_success(string url)
         {
             var client = _factory.CreateClient();
             var response = await client.GetAsync(url);
-
+            
             response.EnsureSuccessStatusCode();
         }
 
@@ -33,12 +34,12 @@ namespace quested_backend.API.Tests.ControllersTests
         public async Task get_by_id_should_return_item_data()
         {
             var client = _factory.CreateClient();
-            var response = await client.GetAsync($"/api/pupils/2");
+            var response = await client.GetAsync($"/api/courses/2");
 
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var responseEntity = JsonConvert.DeserializeObject<Pupil>(responseContent);
+            var responseEntity = JsonConvert.DeserializeObject<Course>(responseContent);
 
             responseEntity.ShouldNotBeNull();
         }
@@ -46,47 +47,50 @@ namespace quested_backend.API.Tests.ControllersTests
         [Fact]
         public async Task add_should_create_new_record()
         {
-            var request = new AddPupilRequest
+            var request = new AddCourseRequest()
             {
-                Firstname = "Miroslav",
-                PupilInClassIds = null,
-                PupilInCourseIds = null
+                Name = "new course",
+                TeacherId = 1,
+                SeasonId = 1
             };
 
             var client = _factory.CreateClient();
 
             var httpsContent = new StringContent(JsonConvert.SerializeObject(request),
                 Encoding.UTF8, "application/json");
-            var response = await client.PostAsync($"/api/pupils", httpsContent);
+            var response = await client.PostAsync($"/api/courses", httpsContent);
 
             response.EnsureSuccessStatusCode();
             response.Headers.Location.ShouldNotBeNull();
         }
 
         [Fact]
-        public async Task update_should_modify_exisitng_item()
+        public async Task update_should_modify_existing_course()
         {
             var client = _factory.CreateClient();
 
-            var request = new EditPupilRequest
+            var request = new EditCourseRequest()
             {
-                Id = 2,
-                Firstname = "Jirka",
-                PupilInClassIds = null,
-                PupilInCourseIds = null
+                Id = 1,
+                Name = "statistics",
+                TeacherId = 1,
+                SeasonId = 1
             };
 
             var httpsContent = new StringContent(JsonConvert.SerializeObject(request),
                 Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/pupils/{request.Id}", httpsContent);
+            var response = await client.PutAsync($"/api/courses/{request.Id}", httpsContent);
 
             response.ShouldNotBeNull();
             response.EnsureSuccessStatusCode();
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var responseEntity = JsonConvert.DeserializeObject<Pupil>(responseContent);
+            var responseEntity = JsonConvert.DeserializeObject<Course>(responseContent);
 
-            responseEntity.Firstname.ShouldBe("Jirka");
+            responseEntity.Name.ShouldBe("statistics");
+            responseEntity.Id.ShouldBe(1);
+            responseEntity.TeacherId.ShouldBe(1);
         }
+        
     }
 }

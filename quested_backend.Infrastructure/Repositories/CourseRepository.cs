@@ -11,14 +11,25 @@ namespace quested_backend.Infrastructure.Repositories
         public CourseRepository(QuestedContext context) : base(context)
             { }
 
-        public async Task<Course> GetCourseWithAnswers(int courseId)
+        public new async Task<Course> GetByIdAsync(int courseId)
+        {
+           var course = await _context.Set<Course>()
+                           .Include(_course => _course.PupilInCourse)
+                               .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                           .FirstOrDefaultAsync(_course => _course.Id == courseId);
+           
+            return course; 
+        }
+
+        public new async Task<Course> ReadOnlyGetByIdAsync(int courseId)
         {
             var course = await _context.Set<Course>()
                 .Include(_course => _course.PupilInCourse)
-                .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                    .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(_course => _course.Id == courseId);
-
-            return course;
+           
+            return course; 
         }
     }
 }

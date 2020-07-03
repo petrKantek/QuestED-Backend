@@ -13,12 +13,15 @@ namespace quested_backend.Domain.Services
 {
     public class SchoolService : ISchoolService
     {
-        private readonly IRepository<School> _schoolRepository;
+        private readonly ISchoolRepository _schoolRepository;
+        private readonly ITeacherRepository _teacherRepository;
         private readonly ISchoolMapper _schoolMapper;
 
-        public SchoolService(IRepository<School> schoolRepository, ISchoolMapper schoolMapper)
+        public SchoolService(ISchoolRepository schoolRepository,  ITeacherRepository teacherRepository
+            , ISchoolMapper schoolMapper)
         {
             _schoolRepository = schoolRepository;
+            _teacherRepository = teacherRepository;
             _schoolMapper = schoolMapper;
         }
         
@@ -72,6 +75,15 @@ namespace quested_backend.Domain.Services
             
             await _schoolRepository.UnitOfWork.SaveChangesAsync();
             return _schoolMapper.Map(result); 
+        }
+
+        public async Task AddTeacherToSchool(AddTeacherToSchoolRequest request)
+        {
+            var school = await _schoolRepository.GetByIdAsync(request.SchoolId);
+            var teacher = await _teacherRepository.GetByIdAsync(request.TeacherId);
+            
+            school.Teacher.Add(teacher);
+            await _schoolRepository.UnitOfWork.SaveChangesAsync();
         }
     }
 }

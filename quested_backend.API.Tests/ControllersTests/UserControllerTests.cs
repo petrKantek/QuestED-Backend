@@ -21,7 +21,7 @@ namespace quested_backend.API.Tests.ControllersTests
         private readonly InMemoryApplicationFactory<Startup> _factory;
 
         public UserControllerTests(InMemoryApplicationFactory<Startup> factory)
-        {
+        { 
             _factory = factory;
         }
 

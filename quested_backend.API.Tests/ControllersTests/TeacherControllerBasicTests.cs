@@ -1,20 +1,22 @@
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Requests.Teacher;
 using quested_backend.Fixtures;
+using quested_backend.Fixtures.Extensions;
 using Shouldly;
 using Xunit;
 
 namespace quested_backend.API.Tests.ControllersTests
 {
-    public class TeacherControllerBasicTests : IClassFixture<InMemoryApplicationFactory<Startup>>
+    public class TeacherControllerBasicTests : IClassFixture<InMemoryApplicationFactory<TestStartup>>
     {
-        private readonly InMemoryApplicationFactory<Startup> _factory;
+        private readonly InMemoryApplicationFactory<TestStartup> _factory;
 
-        public TeacherControllerBasicTests(InMemoryApplicationFactory<Startup> factory)
+        public TeacherControllerBasicTests(InMemoryApplicationFactory<TestStartup> factory)
         {
             _factory = factory;
         }

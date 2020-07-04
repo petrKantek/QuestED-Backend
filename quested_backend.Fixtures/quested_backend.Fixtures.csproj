@@ -57,6 +57,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\quested_backend.API\quested_backend.API.csproj" />
       <ProjectReference Include="..\quested_backend.Infrastructure\quested_backend.Infrastructure.csproj" />
     </ItemGroup>
 

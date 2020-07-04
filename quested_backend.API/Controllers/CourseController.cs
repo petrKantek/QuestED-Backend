@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.Course;
 using quested_backend.Domain.Services.Interfaces;
@@ -8,6 +9,7 @@ namespace quested_backend.Controllers
 {
     [ApiController]
     [Route("api/courses")]
+    [Authorize(Roles = "Admin, Teacher")]
     [JsonException]
     public class CourseController : ControllerBase
     {
@@ -34,13 +36,14 @@ namespace quested_backend.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Post(AddCourseRequest schoolRequest)
         {
             var result = await _courseService.AddCourseAsync(schoolRequest);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null );
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}")] 
         public async Task<IActionResult> Put(int id, EditCourseRequest schoolRequest)
         {
             schoolRequest.Id = id;

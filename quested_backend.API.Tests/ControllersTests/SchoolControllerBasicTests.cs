@@ -10,11 +10,11 @@ using Xunit;
 
 namespace quested_backend.API.Tests.ControllersTests
 {
-    public class SchoolControllerBasicTests : IClassFixture<InMemoryApplicationFactory<Startup>>
+    public class SchoolControllerBasicTests : IClassFixture<InMemoryApplicationFactory<TestStartup>>
     {
-        private readonly InMemoryApplicationFactory<Startup> _factory;
+        private readonly InMemoryApplicationFactory<TestStartup> _factory;
 
-        public SchoolControllerBasicTests(InMemoryApplicationFactory<Startup> factory)
+        public SchoolControllerBasicTests(InMemoryApplicationFactory<TestStartup> factory)
         {
             _factory = factory;
         }

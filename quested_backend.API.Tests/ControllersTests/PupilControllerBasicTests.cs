@@ -1,6 +1,8 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Requests.Pupil;
@@ -10,11 +12,11 @@ using Xunit;
 
 namespace quested_backend.API.Tests.ControllersTests
 {
-    public class PupilControllerBasicTests : IClassFixture<InMemoryApplicationFactory<Startup>>
+    public class PupilControllerBasicTests : IClassFixture<InMemoryApplicationFactory<TestStartup>>
     {
-        private readonly InMemoryApplicationFactory<Startup> _factory;
+        private readonly InMemoryApplicationFactory<TestStartup> _factory;
 
-        public PupilControllerBasicTests(InMemoryApplicationFactory<Startup> factory)
+        public PupilControllerBasicTests(InMemoryApplicationFactory<TestStartup> factory)
         {
             _factory = factory;
         }

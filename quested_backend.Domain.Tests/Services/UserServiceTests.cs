@@ -45,7 +45,8 @@ namespace Domain.Tests.Services
             var result = await _userService.SignInAsync(new SignInRequest
             {
                 Email = "test_email@email.com",
-                Password = "quested"
+                Password = "quested",
+                Role = "Student"
             });
             
             result.Token.ShouldNotBeEmpty();

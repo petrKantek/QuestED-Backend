@@ -1,10 +1,13 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using quested_backend.Infrastructure;
 
 namespace quested_backend.Fixtures
@@ -12,6 +15,16 @@ namespace quested_backend.Fixtures
     public class InMemoryApplicationFactory<TStartup> :
         WebApplicationFactory<TStartup> where TStartup : class
     {
+        // protected override IWebHostBuilder CreateWebHostBuilder()
+        // {
+        //     var builder = new WebHostBuilder().UseStartup<TStartup>().UseTestServer()
+        //         .ConfigureAppConfiguration((hostingContext, config) =>
+        //         {
+        //             config.AddJsonFile("/home/petr/QuestED-Backend/quested_backend.API/appsettings.json", optional: false, reloadOnChange: false);
+        //         });
+        //     return builder;
+        // }
+
         /// <summary>
         /// Configures an http client running in separate process
         /// used for testing controllers
@@ -23,12 +36,22 @@ namespace quested_backend.Fixtures
                 .UseEnvironment("Testing")
                 .ConfigureTestServices(services =>
                 {
-                    var options = new DbContextOptionsBuilder<QuestedContext>()
+                    var dbOptions = new DbContextOptionsBuilder<QuestedContext>()
                         .UseInMemoryDatabase(Guid.NewGuid().ToString())
                         .Options;
 
+                    if (typeof(TStartup).IsSubclassOf(typeof(Startup)))
+                    {
+                        services.AddAuthentication(options =>
+                        {
+                            options.DefaultAuthenticateScheme = "Test";
+                            options.DefaultChallengeScheme = "Test";
+                        }).AddScheme<AuthenticationSchemeOptions, TestAuthenticationHandler>(
+                            "Test", options => { });
+                    }
+
                     services.AddScoped<QuestedContext>(serviceProvider =>
-                        new TestQuestedContext(options));
+                        new TestQuestedContext(dbOptions));
                     
                     services.Replace(ServiceDescriptor.Scoped(_ =>
                         new UsersContextFactory().InMemoryUserManager)); //TODO not sure if correct

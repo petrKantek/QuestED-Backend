@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using quested_backend.Domain.Requests.Class;
 using quested_backend.Domain.Requests.Pupil;
@@ -9,6 +10,7 @@ using quested_backend.Filters;
 namespace quested_backend.Controllers
 {
     [Route("api/classes")]
+    [Authorize(Roles = "Admin, Teacher")]
     [ApiController]
     [JsonException]
     public class ClassController : ControllerBase
@@ -21,6 +23,7 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet]
+        [Authorize(Roles = "Student, Admin, Teacher")]
         public async Task<IActionResult> Get()
         {
             var result = await _classService.GetClassesAsync();
@@ -28,6 +31,7 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Student, Admin, Teacher")]
         [ClassExists]
         public async Task<IActionResult> GetById(int id)
         {

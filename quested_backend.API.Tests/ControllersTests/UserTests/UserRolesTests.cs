@@ -20,8 +20,7 @@ namespace quested_backend.API.Tests.ControllersTests.UserTests
         { 
             _factory = factory;
         }
-        
-        
+
         [Theory]
         [InlineData("/api/user/auth")]
         public async Task sign_in_should_retrieve_a_token(string url)

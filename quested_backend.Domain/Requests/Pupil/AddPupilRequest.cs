@@ -6,8 +6,8 @@ namespace quested_backend.Domain.Requests.Pupil
     {
         public string Firstname { get; set; }
         
-        public virtual ICollection<int> PupilInClassIds { get; set; }
-        
-        public virtual ICollection<int> PupilInCourseIds { get; set; }
+        // public virtual ICollection<int> PupilInClassIds { get; set; }
+        //
+        // public virtual ICollection<int> PupilInCourseIds { get; set; }
     }
 }

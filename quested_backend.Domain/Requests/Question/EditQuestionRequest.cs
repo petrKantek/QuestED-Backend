@@ -12,6 +12,6 @@ namespace quested_backend.Domain.Requests.Question
         
         public int? MaxPoints { get; set; }
         
-        public virtual ICollection<int> PupilInCourseAnswersQuestionIds { get; set; }
+       // public virtual ICollection<int> PupilInCourseAnswersQuestionIds { get; set; }
     }
 }

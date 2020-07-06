@@ -7,9 +7,8 @@ namespace quested_backend.Domain.Requests.Course
     {
         public string Name { get; set; }
         public int TeacherId { get; set; }
-
         public int SeasonId { get; set; }
-
-    //    public virtual ICollection<int> PupilInCourseIds { get; set; }
+        
+        public virtual ICollection<int> PupilInCourseIds { get; set; }
     }
 }

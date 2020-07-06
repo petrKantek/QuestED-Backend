@@ -10,6 +10,6 @@ namespace quested_backend.Domain.Requests.Class
         
         public int TeacherId { get; set; }
         
-       // public virtual ICollection<int> PupilInClass { get; set; }
+       public virtual ICollection<int> PupilInClass { get; set; }
     }
 }

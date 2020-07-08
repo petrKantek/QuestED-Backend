@@ -18,6 +18,7 @@ namespace quested_backend.Infrastructure.Repositories
                 .Include(x => x.Class)
                 .Include(x => x.Course)
                 .Include(x => x.School)
+                .AsNoTracking()
                 .ToListAsync();
 
             return teachers;

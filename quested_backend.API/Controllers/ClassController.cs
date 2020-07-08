@@ -22,6 +22,8 @@ namespace quested_backend.Controllers
         
         [HttpGet]
         [Authorize(Roles = "Student, Admin, Teacher")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var result = await _classService.GetClassesAsync();
@@ -31,6 +33,8 @@ namespace quested_backend.Controllers
         [HttpGet("{id:int}")]
         [Authorize(Roles = "Student, Admin, Teacher")]
         [ClassExists]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _classService.GetClassAsync(
@@ -39,6 +43,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPost]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> Post(AddClassRequest classRequest)
         {
             var result = await _classService.AddClassAsync(classRequest);
@@ -46,6 +52,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Update))]
         public async Task<IActionResult> Put(EditClassRequest classRequest)
         {
             var result = await _classService.EditClassAsync(classRequest);
@@ -55,10 +63,21 @@ namespace quested_backend.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [ClassExists]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Delete))]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedClass = await _classService.DeleteClassById(id);
             return Ok(deletedClass);
+        }
+
+        [HttpPost("addPupil")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Update))]
+        public async Task<IActionResult> AddPupilToClass(AddPupilToClassRequest request)
+        {
+            await _classService.AddPupilToClass(request);
+            return Ok();
         }
     }
 }

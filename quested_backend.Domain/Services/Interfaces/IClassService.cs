@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using quested_backend.Domain.Requests_DTOs.Class;
+using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
@@ -48,6 +49,17 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <returns>edited class</returns>
         Task<ClassResponse> EditClassAsync(EditClassRequest request);
 
+        /// <summary>
+        /// Permanently deletes class with given id from database
+        /// </summary>
+        /// <param name="classId">id of class to be deleted</param>
+        /// <returns>class response of deleted class</returns>
         Task<ClassResponse> DeleteClassById(int classId);
+        
+        /// <summary>
+        /// Adds pupil to class
+        /// </summary>
+        /// <param name="request">object containing information about class and pupil</param>
+        Task AddPupilToClass(AddPupilToClassRequest request);
     }
 }

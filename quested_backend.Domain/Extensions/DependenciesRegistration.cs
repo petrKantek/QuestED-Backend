@@ -15,7 +15,7 @@ namespace quested_backend.Domain.Extensions
         /// <summary>
         /// Registers mappers into DI container
         /// </summary>
-        /// <param name="services"></param>
+        /// <param name="services">DI container </param>
         /// <returns> DI container </returns>
         public static IServiceCollection AddMappers(this IServiceCollection services)
         {
@@ -33,7 +33,7 @@ namespace quested_backend.Domain.Extensions
         /// <summary>
         /// Registers service classes into DI container
         /// </summary>
-        /// <param name="services"></param>
+        /// <param name="services">DI container </param>
         /// <returns> DI container ></returns>
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
@@ -51,8 +51,8 @@ namespace quested_backend.Domain.Extensions
         /// <summary>
         /// Registers fluent validators into DI container
         /// </summary>
-        /// <param name="builder"></param>
-        /// <returns> DI container </returns>
+        /// <param name="builder">MVC DI container </param>
+        /// <returns> MVC DI container </returns>
         public static IMvcBuilder AddValidation(this IMvcBuilder builder)
         {
             builder

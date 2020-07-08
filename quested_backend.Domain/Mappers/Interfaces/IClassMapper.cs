@@ -27,7 +27,5 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <param name="_class"></param>
         /// <returns>class response</returns>
         ClassResponse Map(Class _class);
-        
-        ClassBasicInfo MapAdditionalInfo(Class _class);
     }
 }

@@ -3,7 +3,6 @@ using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Requests_DTOs.Pupil;
 using quested_backend.Domain.Responses_DTOs;
-using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers
 {
@@ -43,30 +42,9 @@ namespace quested_backend.Domain.Mappers
                 Id = pupil.Id,
                 Firstname = pupil.Firstname,
                 EnrolledInClasses = pupil.PupilInClass
-                    .Select(x => new ClassBasicInfo
-                    {
-                        Id = x.Class?.Id,
-                        Name = x.Class?.Name
-                    }).ToList(),
+                    .Select(x => HelperMapper.BasicMap(x.Class)),
                 EnrolledInCourses = pupil.PupilInCourse
-                    .Select(x => new CourseBasicInfo
-                    {
-                        Id = x.Course?.Id,
-                        Name = x.Course?.Name
-                    })
-            };
-
-            return pupilResponse;
-        }
-
-        public PupilBasicInfo MapAdditionalInfo(Pupil pupil)
-        {
-            if (pupil == null) return null;
-
-            var pupilResponse = new PupilBasicInfo()
-            {
-                Id = pupil.Id,
-                Firstname = pupil.Firstname
+                    .Select(x => HelperMapper.BasicMap(x.Course))
             };
 
             return pupilResponse;

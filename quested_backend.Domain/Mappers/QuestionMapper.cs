@@ -3,7 +3,6 @@ using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Requests_DTOs.Question;
 using quested_backend.Domain.Responses_DTOs;
-using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers
 {
@@ -29,27 +28,10 @@ namespace quested_backend.Domain.Mappers
                 MaxPoints = question.MaxPoints,
                 Season = question.Episode?.Season?.Name,
                 Episode = question.Episode?.Name,
-                Answers = question.PupilInCourseAnswersQuestion.Select(MapAnswer)
+                Answers = question.PupilInCourseAnswersQuestion.Select(HelperMapper.BasicMap)
             };
 
             return questionResponse;
-        }
-
-        private AnswerBasicInfo MapAnswer(PupilInCourseAnswersQuestion answer)
-        {
-            if (answer == null) return null;
-            
-            var answerInfo = new AnswerBasicInfo
-            {
-                AchievedPoints = answer.AchievedPoints,
-                AnsweredBy = new PupilBasicInfo
-                {
-                    Id = answer.PupilInCourse.Pupil.Id,
-                    Firstname = answer.PupilInCourse.Pupil.Firstname
-                } 
-            };
-
-            return answerInfo;
         }
     }
 }

@@ -14,13 +14,13 @@ namespace quested_backend.Fixtures.Extensions
         /// <param name="file"> file with json data </param>
         /// <typeparam name="T"> Entity whose data are contained in the file </typeparam>
         /// <returns> modelBuilder with seeded data from file </returns>
-        public static ModelBuilder Seed<T>(this ModelBuilder modelBuilder, string file) where T : class
+        private static ModelBuilder Seed<T>(this ModelBuilder modelBuilder, string file) where T : class
         {
             using (var reader = new StreamReader(file))
             {
-                      var json = reader.ReadToEnd();
-                      var data = JsonConvert.DeserializeObject<T[]>(json);
-                      modelBuilder.Entity<T>().HasData(data);
+                var json = reader.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<T[]>(json);
+                modelBuilder.Entity<T>().HasData(data);
             }
             return modelBuilder;
         }

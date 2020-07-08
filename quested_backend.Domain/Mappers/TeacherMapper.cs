@@ -3,7 +3,6 @@ using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Responses_DTOs;
-using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers
 {
@@ -47,32 +46,8 @@ namespace quested_backend.Domain.Mappers
                 Id = teacher.Id,
                 Firstname = teacher.Firstname,
                 Lastname = teacher.Lastname,
-                TeachesCourses = teacher.Course
-                    .Select(x => new CourseBasicInfo
-                    {
-                        Id = x.Id,
-                        Name = x.Name
-                    }),
-                TeachesInSchool = new SchoolBasicInfo
-                {
-                    Id = teacher.School?.Id,
-                    Name = teacher.School?.Name,
-                    Country = teacher.School?.Country
-                }
-            };
-
-            return teacherResponse;
-        }
-
-        public TeacherBasicInfo MapAdditionalInfo(Teacher teacher)
-        {
-            if (teacher == null) return null;
-            
-            var teacherResponse = new TeacherBasicInfo()
-            {
-                Id = teacher.Id,
-                Firstname = teacher.Firstname,
-                Lastname = teacher.Lastname,
+                TeachesCourses = teacher.Course.Select(HelperMapper.BasicMap),
+                TeachesInSchool = HelperMapper.BasicMap(teacher.School)
             };
 
             return teacherResponse;

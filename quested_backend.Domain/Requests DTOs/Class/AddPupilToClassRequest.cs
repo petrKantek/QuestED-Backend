@@ -1,4 +1,4 @@
-namespace quested_backend.Domain.Requests_DTOs.Teacher
+namespace quested_backend.Domain.Requests_DTOs.Class
 {
     public class AddPupilToClassRequest
     {

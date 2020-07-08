@@ -25,7 +25,5 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <param name="course"></param>
         /// <returns>course response</returns>
         CourseResponse Map(Course course);
-
-        public CourseBasicInfo MapAdditionalInfo(Course course);
     }
 }

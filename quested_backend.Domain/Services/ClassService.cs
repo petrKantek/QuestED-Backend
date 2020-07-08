@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
 using quested_backend.Domain.Requests_DTOs.Class;
+using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Responses_DTOs;
 using quested_backend.Domain.Services.Interfaces;
 
@@ -13,14 +15,11 @@ namespace quested_backend.Domain.Services
     public class ClassService : IClassService
     {
         private readonly IClassRepository _classRepository;
-        private readonly ITeacherRepository _teacherRepository;
         private readonly IClassMapper _classMapper;
 
-        public ClassService(IClassRepository classRepository, ITeacherRepository teacherRepository,
-            IClassMapper classMapper)
+        public ClassService(IClassRepository classRepository, IClassMapper classMapper)
         {
             _classRepository = classRepository;
-            _teacherRepository = teacherRepository;
             _classMapper = classMapper;
         }
         
@@ -65,7 +64,7 @@ namespace quested_backend.Domain.Services
             var existingRecord = _classRepository.ReadOnlyGetByIdAsync(request.Id);
             if (existingRecord == null)
             {
-                throw new ArgumentException($"Class with {request.Id} is does not exist in the database");
+                throw new ArgumentException($"Class with {request.Id} does not exist in the database");
             }
             
             var editedClass = _classMapper.Map(request);
@@ -80,6 +79,22 @@ namespace quested_backend.Domain.Services
             var existingRecord = await _classRepository.DeleteById(classId);
             await _classRepository.UnitOfWork.SaveChangesAsync();
             return _classMapper.Map(existingRecord);
+        }
+        
+        public async Task AddPupilToClass(AddPupilToClassRequest request)
+        {
+            var _class = await _classRepository.GetByIdAsync(request.ClassId);
+            
+            if (_class == null)
+                throw new ArgumentException($"Class with ID {request.ClassId} does not exist in the database");
+            
+            _class.PupilInClass.Add(new PupilInClass
+            {
+                ClassId = request.ClassId,
+                PupilId = request.PupilId
+            });
+
+            await _classRepository.UnitOfWork.SaveEntitiesAsync();
         }
     }
 }

@@ -47,8 +47,6 @@ namespace Domain.Tests.Services.Course
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
             result.Name.ShouldBe("math");
-//            result.TaughtBy.Id.ShouldBe(3);
- //           result.TaughtInSeason.ShouldBe("Spring Summer 2020");
         }
         
         [Fact]
@@ -77,9 +75,7 @@ namespace Domain.Tests.Services.Course
                 await sut.AddCourseAsync(course);
             
             addedCourse.ShouldNotBeNull();
-            addedCourse.Name.ShouldBe(course.Name);
-//            addedCourse.TaughtBy.Id.ShouldBe(course.TeacherId);
-//            addedCourse.TaughtInSeason.ShouldBe("Spring Summer 2020");
+            addedCourse.Name.ShouldBe(course.Name); ;
         }
 
         [Fact]
@@ -101,8 +97,6 @@ namespace Domain.Tests.Services.Course
             editedCourse.ShouldNotBeNull();
             editedCourse.Id.ShouldBe(editCourseRequest.Id);
             editedCourse.Name.ShouldBe(editCourseRequest.Name);
-//            editedCourse.TaughtInSeason.ShouldBe("Spring Summer 2020");
- //           editedCourse.TaughtBy.Id.ShouldBe(editCourseRequest.TeacherId);
         }
     }
 }

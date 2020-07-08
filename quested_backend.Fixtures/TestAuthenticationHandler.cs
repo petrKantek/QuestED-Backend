@@ -8,6 +8,9 @@ using Microsoft.Extensions.Options;
 
 namespace quested_backend.Fixtures
 {
+    /// <summary>
+    /// Mock authentication for testing purposes
+    /// </summary>
     public class TestAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         public TestAuthenticationHandler(IOptionsMonitor<AuthenticationSchemeOptions> options,

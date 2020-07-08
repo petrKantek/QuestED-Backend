@@ -25,7 +25,7 @@ namespace Domain.Tests.Services
             ITeacherRepository teacherRepository = 
                 new TeacherRepository(questedContextFactory.ContextInstance);
             _classMapper = questedContextFactory.ClassMapper;
-            _sut = new ClassService(classRepository, teacherRepository ,_classMapper);
+            _sut = new ClassService(classRepository, _classMapper);
         }
         
         [Fact]

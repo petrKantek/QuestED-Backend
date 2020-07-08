@@ -17,7 +17,7 @@ namespace quested_backend.Infrastructure.Extensions
         /// </summary>
         /// <param name="services">collection of injected service classes</param>
         /// <param name="configuration">quested_backend/API/appsettings.json file</param>
-        /// <returns></returns>
+        /// <returns>DI Container</returns>
         public static IServiceCollection AddTokenAuthentication(
             this IServiceCollection services, IConfiguration configuration)
         {

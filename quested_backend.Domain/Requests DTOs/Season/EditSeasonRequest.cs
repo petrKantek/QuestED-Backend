@@ -11,7 +11,5 @@ namespace quested_backend.Domain.Requests_DTOs.Season
         public virtual ICollection<int> CourseIds { get; set; }
         
         public virtual ICollection<int> EpisodeIds { get; set; }
-        
-        // public virtual ICollection<int> SchoolOwnsSeasonIds { get; set; }
     }
 }

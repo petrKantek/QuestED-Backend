@@ -80,7 +80,8 @@ namespace Domain.Tests.Services.School
             {
                 Id = 3,
                 Name = "JKU",
-                Country = "Austria"
+                Country = "Austria",
+                TeacherIds = null
             };
 
             var editedSchool =

@@ -1,8 +1,10 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Infrastructure.Repositories
 {
@@ -10,6 +12,17 @@ namespace quested_backend.Infrastructure.Repositories
     {
         public CourseRepository(QuestedContext context) : base(context)
             { }
+
+        public new async Task<IEnumerable<Course>> GetAllAsync()
+        {
+            var courses = await _context.Set<Course>()
+                .Include(course => course.PupilInCourse)
+                    .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return courses;
+        }
 
         public new async Task<Course> GetByIdAsync(int courseId)
         {

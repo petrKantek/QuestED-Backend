@@ -124,31 +124,5 @@ namespace quested_backend.Domain.Services
             await _questionRepository.UnitOfWork.SaveChangesAsync();
             return _teacherMapper.Map(existingRecord);
         }
-
-        public async Task AddPupilToClass(AddPupilToClassRequest request)
-        {
-            var teacher = await _teacherRepository.GetByIdAsync(request.TeacherId);
-            
-            if (teacher == null)
-                throw new ArgumentNullException();
-
-            var pupil = await _pupilRepository.GetByIdAsync(request.PupilId);
-            
-            if (pupil == null)
-                throw new ArgumentNullException();
-            
-            var _class = teacher.Class.FirstOrDefault(x => x.Id == request.ClassId);
-            
-            if (_class == null)
-                throw new ArgumentNullException();
-            
-            _class.PupilInClass.Add(new PupilInClass
-            {
-                ClassId = request.ClassId,
-                PupilId = request.PupilId
-            });
-
-            await _pupilRepository.UnitOfWork.SaveEntitiesAsync();
-        }
     }
 }

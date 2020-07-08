@@ -23,6 +23,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var claim = HttpContext.User.Claims.FirstOrDefault(x => 
@@ -38,6 +40,8 @@ namespace quested_backend.Controllers
 
         [AllowAnonymous]
         [HttpPost("auth")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> SignIn(SignInRequest request)
         {
             var token = await _userService.SignInAsync(request);
@@ -48,6 +52,8 @@ namespace quested_backend.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Create))] 
         public async Task<IActionResult> SignUp(SignUpRequest request)
         {
             var user = await _userService.SignUpAsync(request);

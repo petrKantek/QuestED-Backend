@@ -62,14 +62,11 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="request">object containing information about pupil whose score will be edited</param>
         Task EditScore(EditScoreRequest request);
         
-        Task<TeacherResponse> DeleteTeacherById(int teacherId);
-        
         /// <summary>
-        /// Adds existing pupil to class. 
+        /// Deletes teacher with given id permanently from database
         /// </summary>
-        /// <param name="request">object containing information about pupil that will be assigned to a class</param>
-        Task AddPupilToClass(AddPupilToClassRequest request);
-        
-        //TODO Task ImportLogFile();
+        /// <param name="teacherId">id of teacher to be deleted</param>
+        /// <returns>teacher response of the deleted teacher</returns>
+        Task<TeacherResponse> DeleteTeacherById(int teacherId);
     }
 }

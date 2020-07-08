@@ -21,6 +21,8 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var result = await _teacherService.GetTeachersAsync();
@@ -29,6 +31,8 @@ namespace quested_backend.Controllers
         
         [HttpGet("{id:int}")]
         [TeacherExists]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _teacherService.GetTeacherAsync(
@@ -37,6 +41,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPost]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Create))]
         public async Task<IActionResult> Post(AddTeacherRequest request)
         {
             var result = await _teacherService.AddTeacherAsync(request);
@@ -44,6 +50,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Update))]
         public async Task<IActionResult> Put(EditTeacherRequest request)
         {
             var result = await _teacherService.EditTeacherAsync(request);
@@ -51,20 +59,17 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut("score")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Update))]
         public async Task<IActionResult> EditScore(EditScoreRequest request)
         {
             await _teacherService.EditScore(request);
             return Ok();
         }
 
-        [HttpPost("addToClass")]
-        public async Task<IActionResult> AddPupilToClass(AddPupilToClassRequest request)
-        {
-            await _teacherService.AddPupilToClass(request);
-            return Ok();
-        }
-
         [HttpGet("score")]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> GetPupilScore(GetPupilScoreRequest request)
         {
             var score = await _teacherService.GetPupilScore(request);
@@ -74,6 +79,8 @@ namespace quested_backend.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [TeacherExists]
+        [ApiConventionMethod(typeof(DefaultApiConventions),
+            nameof(DefaultApiConventions.Delete))]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedTeacher = await _teacherService.DeleteTeacherById(id);

@@ -9,7 +9,5 @@
         public int EpisodeSeasonId { get; set; }
         
         public int? MaxPoints { get; set; }
-        
-       // public virtual ICollection<int> PupilInCourseAnswersQuestionIds { get; set; }
     }
 }

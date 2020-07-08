@@ -51,6 +51,11 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <returns>edited course</returns>
         Task<CourseResponse> EditCourseAsync(EditCourseRequest request);
         
+        /// <summary>
+        /// Deletes course with given id permanently from database
+        /// </summary>
+        /// <param name="courseId">id of course to be deleted</param>
+        /// <returns>course response of the deleted course</returns>
         Task<CourseResponse> DeleteCourseById(int courseId);
 
         /// <summary>
@@ -66,6 +71,5 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="courseId">ID of course for which to create the dictionary</param>
         /// <returns>dictionary of ints and doubles</returns>
         AvgMark GetAvgScoreOfPupils(int courseId);
-
     }
 }

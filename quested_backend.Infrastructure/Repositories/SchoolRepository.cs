@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using quested_backend.Domain.Entities;
@@ -9,6 +10,17 @@ namespace quested_backend.Infrastructure.Repositories
     {
         public SchoolRepository(QuestedContext context) : base(context)
             { }
+
+        public new async Task<IEnumerable<School>> GetAllAsync()
+        {
+            var schools = await _context.Set<School>()
+                .Include(x => x.Teacher)
+                .Include(x => x.SchoolOwnsSeason)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return schools;
+        }
 
         public new async Task<School> GetByIdAsync(int schoolId)
         {

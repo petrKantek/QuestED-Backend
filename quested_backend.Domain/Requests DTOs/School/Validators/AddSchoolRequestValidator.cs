@@ -17,7 +17,7 @@ namespace quested_backend.Domain.Requests_DTOs.School.Validators
             RuleForEach(x => x.TeacherIds).GreaterThan(0)
                 .MustAsync(TeacherExists).WithMessage("All teachers must exist in the database");
         }
-
+        
         private async Task<bool> TeacherExists(int teacherId, CancellationToken cancellationToken)
         {
             var teacher = await _teacherService.GetTeacherAsync(new GetTeacherRequest

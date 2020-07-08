@@ -8,7 +8,7 @@ using quested_backend.Domain.Services.Interfaces;
 namespace quested_backend.Filters
 {
     /// <summary>
-    /// User-define attribute, performs validation of Teacher entity
+    /// User-defined attribute, performs validation of Teacher entity
     /// </summary>
     public class TeacherExistsAttribute : TypeFilterAttribute
     {

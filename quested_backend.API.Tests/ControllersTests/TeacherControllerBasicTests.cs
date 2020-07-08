@@ -51,7 +51,8 @@ namespace quested_backend.API.Tests.ControllersTests
             var request = new AddTeacherRequest()
             {
                 Firstname = "Sean",
-                Lastname = "Diaz"
+                Lastname = "Diaz",
+                SchoolId = 1
             };
 
             var client = _factory.CreateClient();

@@ -24,8 +24,6 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// </summary>
         /// <param name="pupil"></param>
         /// <returns>pupil response</returns>
-        PupilResponse Map(Pupil pupil); 
-        
-        PupilBasicInfo MapAdditionalInfo(Pupil pupil); 
+        PupilResponse Map(Pupil pupil);
     }
 }

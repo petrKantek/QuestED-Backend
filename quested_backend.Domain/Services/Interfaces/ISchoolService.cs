@@ -54,6 +54,11 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="request">object specifying which teacher to assign to a school</param>
         Task AddTeacherToSchool(AddTeacherToSchoolRequest request);
         
+        /// <summary>
+        /// Deletes school with the given id permanently from database
+        /// </summary>
+        /// <param name="schoolId">id of school to be deleted</param>
+        /// <returns>school response of the deleted school</returns>
         Task<SchoolResponse> DeleteSchoolById(int schoolId);
     }
 }

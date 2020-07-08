@@ -25,7 +25,5 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <param name="teacher"></param>
         /// <returns>teacher response</returns>
         TeacherResponse Map(Teacher teacher);
-        
-        TeacherBasicInfo MapAdditionalInfo(Teacher teacher);
     }
 }

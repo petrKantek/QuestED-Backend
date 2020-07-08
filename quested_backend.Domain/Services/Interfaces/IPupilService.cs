@@ -48,6 +48,11 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <returns>edited pupil</returns>
         Task<PupilResponse> EditPupilAsync(EditPupilRequest request);
         
+        /// <summary>
+        /// Deletes pupil with given id permanently from database
+        /// </summary>
+        /// <param name="pupilId">id of pupil to be deleted</param>
+        /// <returns>pupil response of the deleted pupil</returns>
         Task<PupilResponse> DeletePupilById(int pupilId);
     }
 }

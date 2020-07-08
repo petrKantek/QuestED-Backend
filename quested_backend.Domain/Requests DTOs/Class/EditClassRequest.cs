@@ -9,7 +9,5 @@ namespace quested_backend.Domain.Requests_DTOs.Class
         public string Name { get; set; }
         
         public int TeacherId { get; set; }
-        
-       // public virtual ICollection<int> PupilInClass { get; set; }
     }
 }

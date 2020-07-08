@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using quested_backend.Conventions;
 using quested_backend.Domain.Requests_DTOs.Course;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
@@ -21,8 +22,8 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var result = await _courseService.GetCoursesAsync();
@@ -31,8 +32,8 @@ namespace quested_backend.Controllers
         
         [HttpGet("{id:int}")]
         [CourseExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _courseService.GetCourseAsync(
@@ -42,8 +43,8 @@ namespace quested_backend.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Create))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Create))]
         public async Task<IActionResult> Post(AddCourseRequest schoolRequest)
         {
             var result = await _courseService.AddCourseAsync(schoolRequest);
@@ -51,8 +52,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Update))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Update))]
         public async Task<IActionResult> Put(EditCourseRequest schoolRequest)
         {
             var result = await _courseService.EditCourseAsync(schoolRequest);
@@ -61,8 +62,8 @@ namespace quested_backend.Controllers
 
         [HttpGet("avg/{id:int}")]
         [CourseExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetAvgScore(int id)
         {
             var avgScores = await _courseService.GetAvgScoreOfPupils(id);
@@ -71,8 +72,8 @@ namespace quested_backend.Controllers
         
         [HttpGet("scores/{id:int}")]
         [CourseExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetScores(int id)
         {
             var avgScores = await _courseService.GetScoresOfAllPupils(id);
@@ -82,8 +83,8 @@ namespace quested_backend.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [CourseExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Delete))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Delete))]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedCourse = await _courseService.DeleteCourseById(id);

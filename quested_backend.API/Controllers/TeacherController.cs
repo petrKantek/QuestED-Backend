@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using quested_backend.Conventions;
 using quested_backend.Domain.Requests_DTOs.Pupil;
 using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Services.Interfaces;
@@ -21,8 +22,8 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var result = await _teacherService.GetTeachersAsync();
@@ -31,8 +32,8 @@ namespace quested_backend.Controllers
         
         [HttpGet("{id:int}")]
         [TeacherExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _teacherService.GetTeacherAsync(
@@ -41,8 +42,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPost]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Create))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Create))]
         public async Task<IActionResult> Post(AddTeacherRequest request)
         {
             var result = await _teacherService.AddTeacherAsync(request);
@@ -50,8 +51,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Update))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Update))]
         public async Task<IActionResult> Put(EditTeacherRequest request)
         {
             var result = await _teacherService.EditTeacherAsync(request);
@@ -59,8 +60,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut("score")]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Update))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Update))]
         public async Task<IActionResult> EditScore(EditScoreRequest request)
         {
             await _teacherService.EditScore(request);
@@ -68,8 +69,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet("score")]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetPupilScore(GetPupilScoreRequest request)
         {
             var score = await _teacherService.GetPupilScore(request);
@@ -79,8 +80,8 @@ namespace quested_backend.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [TeacherExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Delete))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Delete))]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedTeacher = await _teacherService.DeleteTeacherById(id);

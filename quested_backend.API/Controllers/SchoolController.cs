@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using quested_backend.Conventions;
 using quested_backend.Domain.Requests_DTOs.School;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
@@ -21,8 +22,8 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var result = await _schoolService.GetSchoolsAsync();
@@ -31,8 +32,8 @@ namespace quested_backend.Controllers
 
         [HttpGet("{id:int}")]
         [SchoolExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _schoolService.GetSchoolAsync(
@@ -41,8 +42,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPost]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Create))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Create))]
         public async Task<IActionResult> Post(AddSchoolRequest schoolRequest)
         {
             var result = await _schoolService.AddSchoolAsync(schoolRequest);
@@ -50,8 +51,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Update))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Update))]
         public async Task<IActionResult> Put(EditSchoolRequest schoolRequest)
         {
             var result = await _schoolService.EditSchoolAsync(schoolRequest);
@@ -61,8 +62,8 @@ namespace quested_backend.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [SchoolExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Delete))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Delete))]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedSchool = await _schoolService.DeleteSchoolById(id);

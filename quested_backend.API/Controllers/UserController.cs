@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using quested_backend.Conventions;
 using quested_backend.Domain.Requests_DTOs.User;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
@@ -23,8 +24,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var claim = HttpContext.User.Claims.FirstOrDefault(x => 
@@ -40,8 +41,8 @@ namespace quested_backend.Controllers
 
         [AllowAnonymous]
         [HttpPost("auth")]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Create))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Create))]
         public async Task<IActionResult> SignIn(SignInRequest request)
         {
             var token = await _userService.SignInAsync(request);
@@ -52,8 +53,8 @@ namespace quested_backend.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Create))] 
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Create))] 
         public async Task<IActionResult> SignUp(SignUpRequest request)
         {
             var user = await _userService.SignUpAsync(request);

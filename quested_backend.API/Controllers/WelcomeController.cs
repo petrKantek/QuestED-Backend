@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using quested_backend.Conventions;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
 using quested_backend.Infrastructure;
@@ -16,8 +17,8 @@ namespace quested_backend.Controllers
     public class WelcomeController : ControllerBase
     {
         [HttpGet]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public Dictionary<string, string>  Get()
         {
             

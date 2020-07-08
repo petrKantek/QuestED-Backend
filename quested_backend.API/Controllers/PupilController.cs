@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using quested_backend.Conventions;
 using quested_backend.Domain.Requests_DTOs.Pupil;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
@@ -21,8 +22,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpGet]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> Get()
         {
             var result = await _pupilService.GetPupilsAsync();
@@ -31,8 +32,8 @@ namespace quested_backend.Controllers
 
         [HttpGet("{id:int}")]
         [PupilExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Get))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Get))]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _pupilService.ReadOnlyGetPupilAsync(
@@ -42,8 +43,8 @@ namespace quested_backend.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin, Teacher")]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Create))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Create))]
         public async Task<IActionResult> Post(AddPupilRequest pupilRequest)
         {
             var result = await _pupilService.AddPupilAsync(pupilRequest);
@@ -51,8 +52,8 @@ namespace quested_backend.Controllers
         }
 
         [HttpPut]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Update))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Update))]
         public async Task<IActionResult> Put(EditPupilRequest pupilRequest)
         {
             var result = await _pupilService.EditPupilAsync(pupilRequest);
@@ -62,8 +63,8 @@ namespace quested_backend.Controllers
         [HttpDelete("{id:int}")]
         [Authorize(Roles = "Admin")]
         [PupilExists]
-        [ApiConventionMethod(typeof(DefaultApiConventions),
-            nameof(DefaultApiConventions.Delete))]
+        [ApiConventionMethod(typeof(QuestedApiConventions),
+            nameof(QuestedApiConventions.Delete))]
         public async Task<IActionResult> Delete(int id)
         {
             var deletedPupil = await _pupilService.DeletePupilById(id);

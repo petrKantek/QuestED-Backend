@@ -9,8 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using quested_backend.Domain.Configurations;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.User;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.User;
+using quested_backend.Domain.Responses_DTOs;
 using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services

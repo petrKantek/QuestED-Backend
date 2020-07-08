@@ -30,15 +30,20 @@ namespace quested_backend.Infrastructure.Repositories
 
         public async Task<bool> SignUpAsync(User user, string password, string role, CancellationToken cancellationToken)
         {
-            
             var isCreated = await _userManager.CreateAsync(user, password);
-            if (!isCreated.Succeeded) return false;
+            if (!isCreated.Succeeded) 
+            {
+                return false;
+            }
+
             if (!await _roleManager.RoleExistsAsync(role))
             {
-                var newRole = new IdentityRole();
-                newRole.Name = role;
+                var newRole = new IdentityRole { Name = role };
                 var addedRole = await _roleManager.CreateAsync(newRole);
-                if (!addedRole.Succeeded) return false;
+                if (!addedRole.Succeeded)
+                {
+                    return false;
+                }
                 var hasRole = await _userManager.AddToRoleAsync(user, role);
                 return  hasRole.Succeeded;
             }

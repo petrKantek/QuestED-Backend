@@ -183,8 +183,8 @@ namespace quested_backend.Migrations
                         .HasMaxLength(45)
                         .IsUnicode(false);
 
-                    b.Property<int>("SeasonId")
-                        .HasColumnName("season_id")
+                    b.Property<int>("CourseId")
+                        .HasColumnName("course_id") //TODO change name in db
                         .HasColumnType("int(11)");
 
                     b.Property<int>("TeacherId")
@@ -193,8 +193,8 @@ namespace quested_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("SeasonId")
-                        .HasName("fk_course_instance_season1_idx");
+                    b.HasIndex("CourseId")
+                        .HasName("fk_course_instance_course1_idx");
 
                     b.HasIndex("TeacherId")
                         .HasName("fk_course_instance_teacher1_idx");
@@ -581,10 +581,10 @@ namespace quested_backend.Migrations
 
             modelBuilder.Entity("quested_backend.Domain.Entities.Course", b =>
                 {
-                    b.HasOne("quested_backend.Domain.Entities.Season", "Season")
+                    b.HasOne("quested_backend.Domain.Entities.Season", "CourseNavigation")
                         .WithMany("Course")
-                        .HasForeignKey("SeasonId")
-                        .HasConstraintName("fk_course_instance_season1")
+                        .HasForeignKey("CourseId")
+                        .HasConstraintName("fk_course_instance_course1")
                         .IsRequired();
 
                     b.HasOne("quested_backend.Domain.Entities.Teacher", "Teacher")

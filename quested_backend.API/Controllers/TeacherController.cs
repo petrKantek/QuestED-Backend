@@ -1,8 +1,8 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Requests.Teacher;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
 
@@ -28,6 +28,7 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet("{id:int}")]
+        [TeacherExists]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _teacherService.GetTeacherAsync(
@@ -36,37 +37,47 @@ namespace quested_backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(AddTeacherRequest schoolRequest)
+        public async Task<IActionResult> Post(AddTeacherRequest request)
         {
-            var result = await _teacherService.AddTeacherAsync(schoolRequest);
+            var result = await _teacherService.AddTeacherAsync(request);
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null );
         }
 
-        [HttpPut("{id:int}")]
-        public async Task<IActionResult> Put(int id, EditTeacherRequest schoolRequest)
+        [HttpPut]
+        public async Task<IActionResult> Put(EditTeacherRequest request)
         {
-            schoolRequest.Id = id;
-            var result = await _teacherService.EditTeacherAsync(schoolRequest);
+            var result = await _teacherService.EditTeacherAsync(request);
             return Ok(result);
         }
 
-        [HttpPut]
+        [HttpPut("score")]
         public async Task<IActionResult> EditScore(EditScoreRequest request)
         {
             await _teacherService.EditScore(request);
             return Ok();
         }
 
+        [HttpPost("addToClass")]
         public async Task<IActionResult> AddPupilToClass(AddPupilToClassRequest request)
         {
             await _teacherService.AddPupilToClass(request);
             return Ok();
         }
 
+        [HttpGet("score")]
         public async Task<IActionResult> GetPupilScore(GetPupilScoreRequest request)
         {
             var score = await _teacherService.GetPupilScore(request);
             return Ok(score);
+        }
+        
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        [TeacherExists]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedTeacher = await _teacherService.DeleteTeacherById(id);
+            return Ok(deletedTeacher);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using quested_backend.Domain.Requests.User;
+using quested_backend.Domain.Requests_DTOs.User;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
 

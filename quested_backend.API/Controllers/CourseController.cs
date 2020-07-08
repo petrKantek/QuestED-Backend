@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using quested_backend.Domain.Requests.Course;
+using quested_backend.Domain.Requests_DTOs.Course;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
 
@@ -28,6 +28,7 @@ namespace quested_backend.Controllers
         }
         
         [HttpGet("{id:int}")]
+        [CourseExists]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _courseService.GetCourseAsync(
@@ -43,12 +44,36 @@ namespace quested_backend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null );
         }
 
-        [HttpPut("{id:int}")] 
-        public async Task<IActionResult> Put(int id, EditCourseRequest schoolRequest)
+        [HttpPut]
+        public async Task<IActionResult> Put(EditCourseRequest schoolRequest)
         {
-            schoolRequest.Id = id;
             var result = await _courseService.EditCourseAsync(schoolRequest);
             return Ok(result);
+        }
+
+        [HttpGet("avg/{id:int}")]
+        [CourseExists]
+        public async Task<IActionResult> GetAvgScore(int id)
+        {
+            var avgScores = await _courseService.GetAvgScoreOfPupils(id);
+            return Ok(avgScores);
+        }
+        
+        [HttpGet("scores/{id:int}")]
+        [CourseExists]
+        public async Task<IActionResult> GetScores(int id)
+        {
+            var avgScores = await _courseService.GetScoresOfAllPupils(id);
+            return Ok(avgScores);
+        }
+        
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        [CourseExists]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedCourse = await _courseService.DeleteCourseById(id);
+            return Ok(deletedCourse);
         }
     }
 }

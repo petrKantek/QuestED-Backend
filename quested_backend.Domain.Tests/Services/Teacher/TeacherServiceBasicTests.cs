@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.Teacher;
+using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;
@@ -46,7 +46,7 @@ namespace Domain.Tests.Services.Teacher
             result.Id.ShouldBe(id);
             result.Firstname.ShouldBe("Jim");
             result.Lastname.ShouldBe("Rogers");
-            result.SchoolId.ShouldBe(1);
+            result.TeachesInSchool.Id.ShouldBe(1);
         }
         
         [Fact]
@@ -55,17 +55,6 @@ namespace Domain.Tests.Services.Teacher
             _sut
                 .ReadOnlyGetTeacherAsync(null).
                 ShouldThrow<ArgumentNullException>();
-        }
-        
-        [Theory]
-        [InlineData(-2)]
-        public void getTeacher_with_negative_id_should_throw_exception(int id)
-        {
-            var teacherRequest = new GetTeacherRequest { Id = id };
-        
-            _sut.
-                ReadOnlyGetTeacherAsync(teacherRequest).
-                ShouldThrow<ArgumentException>();
         }
         
         [Fact]

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using quested_backend.Domain.Responses;
 
 namespace quested_backend.Domain.Entities
 {

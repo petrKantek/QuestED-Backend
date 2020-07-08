@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using quested_backend.Domain.Configurations;
-using quested_backend.Domain.Requests.User;
+using quested_backend.Domain.Requests_DTOs.User;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;

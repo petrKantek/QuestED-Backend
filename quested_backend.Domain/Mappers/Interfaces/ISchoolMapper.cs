@@ -1,6 +1,7 @@
 ﻿using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.School;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.School;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers.Interfaces
 {
@@ -24,5 +25,7 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <param name="school"></param>
         /// <returns>school response</returns>
         SchoolResponse Map(School school);
+
+        SchoolBasicInfo MapAdditionalInfo(School school);
     }
 }

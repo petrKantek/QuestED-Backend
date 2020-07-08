@@ -34,6 +34,6 @@ namespace quested_backend.Domain.Repositories
 
         void Delete(TEntity entity);
 
-        void DeleteById(int id);
+        Task<TEntity> DeleteById(int id);
     }
 }

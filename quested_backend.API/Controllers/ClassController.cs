@@ -1,9 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using quested_backend.Domain.Requests.Class;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Services;
+using quested_backend.Domain.Requests_DTOs.Class;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
 
@@ -47,13 +45,20 @@ namespace quested_backend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null );
         }
 
-        [HttpPut("{id:int}")]
-        [ClassExists]
-        public async Task<IActionResult> Put(int id, EditClassRequest classRequest)
+        [HttpPut]
+        public async Task<IActionResult> Put(EditClassRequest classRequest)
         {
-            classRequest.Id = id;
             var result = await _classService.EditClassAsync(classRequest);
             return Ok(result);
+        }
+
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        [ClassExists]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedClass = await _classService.DeleteClassById(id);
+            return Ok(deletedClass);
         }
     }
 }

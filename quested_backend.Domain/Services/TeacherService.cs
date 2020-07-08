@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Requests.Teacher;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Requests_DTOs.Teacher;
+using quested_backend.Domain.Responses_DTOs;
 using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services
@@ -38,8 +38,6 @@ namespace quested_backend.Domain.Services
         {
             if (request == null) 
                 throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
             
             var result = await _teacherRepository.GetByIdAsync(request.Id);
             return _teacherMapper.Map(result);
@@ -49,9 +47,7 @@ namespace quested_backend.Domain.Services
         {
             if (request == null) 
                 throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
-            
+
             var result = await _teacherRepository.ReadOnlyGetByIdAsync(request.Id);
             return _teacherMapper.Map(result);
         }
@@ -80,7 +76,8 @@ namespace quested_backend.Domain.Services
             var result = _teacherRepository.Update(entity);
             
             await _teacherRepository.UnitOfWork.SaveChangesAsync();
-            return _teacherMapper.Map(result); 
+            var editedTeacher = await _teacherRepository.ReadOnlyGetByIdAsync(result.Id);
+            return _teacherMapper.Map(editedTeacher); 
         }
 
         public async Task<int> GetPupilScore(GetPupilScoreRequest request)
@@ -98,15 +95,7 @@ namespace quested_backend.Domain.Services
 
             return score.AchievedPoints;
         }
-
-        public async Task GetPupilsScores(int courseId, int classId)
-        {
-           // var teacher = await _teacherRepository.ReadOnlyGetByIdAsync(teacherId);
-           // var course = await _courseRepository.ReadOnlyGetByIdAsync(courseId);
-           // var pupils = course.PupilInCourse;
-           
-        }
-
+        
         public async Task EditScore(EditScoreRequest request) 
         {
             if (request == null) 
@@ -127,6 +116,13 @@ namespace quested_backend.Domain.Services
 
             answer.AchievedPoints = request.NewScore;
             await _questionRepository.UnitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<TeacherResponse> DeleteTeacherById(int teacherId)
+        {
+            var existingRecord = await _teacherRepository.DeleteById(teacherId);
+            await _questionRepository.UnitOfWork.SaveChangesAsync();
+            return _teacherMapper.Map(existingRecord);
         }
 
         public async Task AddPupilToClass(AddPupilToClassRequest request)

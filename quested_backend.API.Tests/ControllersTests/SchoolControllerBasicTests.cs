@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.School;
+using quested_backend.Domain.Requests_DTOs.School;
 using quested_backend.Fixtures;
 using Shouldly;
 using Xunit;
@@ -76,7 +76,7 @@ namespace quested_backend.API.Tests.ControllersTests
 
             var httpsContent = new StringContent(JsonConvert.SerializeObject(request),
                 Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/schools/{request.Id}", httpsContent);
+            var response = await client.PutAsync("/api/schools", httpsContent);
 
             response.ShouldNotBeNull();
             response.EnsureSuccessStatusCode();

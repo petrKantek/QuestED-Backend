@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
 {
@@ -48,6 +48,6 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <returns>edited pupil</returns>
         Task<PupilResponse> EditPupilAsync(EditPupilRequest request);
         
-     // TODO  soft deletion - Task<PupilResponse> DeleteItemAsync(DeletePupilRequest request); 
+        Task<PupilResponse> DeletePupilById(int pupilId);
     }
 }

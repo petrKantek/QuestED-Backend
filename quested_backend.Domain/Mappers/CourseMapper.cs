@@ -1,7 +1,9 @@
-﻿using quested_backend.Domain.Entities;
+﻿using System.Linq;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
-using quested_backend.Domain.Requests.Course;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Course;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers
 {
@@ -15,7 +17,7 @@ namespace quested_backend.Domain.Mappers
             {
                 Name = request.Name,
                 TeacherId =  request.TeacherId,
-                SeasonId = request.SeasonId
+                CourseId = request.SeasonId
             };
 
             return course;
@@ -30,7 +32,7 @@ namespace quested_backend.Domain.Mappers
                 Id = request.Id,
                 Name = request.Name,
                 TeacherId =  request.TeacherId,
-                SeasonId = request.SeasonId
+                CourseId = request.SeasonId
             };
 
             return course;
@@ -44,8 +46,32 @@ namespace quested_backend.Domain.Mappers
             {
                 Id = course.Id,
                 Name = course.Name,
-                TeacherId = course.TeacherId,
-                SeasonId = course.SeasonId
+                TaughtInSeason = course.CourseNavigation?.Name,
+                TaughtBy = new TeacherBasicInfo
+                {
+                    Id = course.Teacher?.Id,
+                    Firstname = course.Teacher?.Firstname,
+                    Lastname = course.Teacher?.Lastname
+                },
+                EnrolledPupils = course.PupilInCourse
+                    .Select(x => new PupilBasicInfo
+                    {
+                        Id = x.Pupil?.Id,
+                        Firstname = x.Pupil?.Firstname
+                    })
+            };
+
+            return courseResponse;
+        }
+
+        public CourseBasicInfo MapAdditionalInfo(Course course)
+        {
+            if (course == null) return null;
+
+            var courseResponse = new CourseBasicInfo()
+            {
+                Id = course.Id,
+                Name = course.Name,
             };
 
             return courseResponse;

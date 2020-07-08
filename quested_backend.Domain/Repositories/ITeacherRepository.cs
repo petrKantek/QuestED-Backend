@@ -4,7 +4,7 @@ using quested_backend.Domain.Entities;
 namespace quested_backend.Domain.Repositories
 {
     /// <summary>
-    /// Specific teacher repository.
+    /// Specific Teacher repository.
     /// </summary>
     public interface ITeacherRepository : IRepository<Teacher>
     {
@@ -13,6 +13,6 @@ namespace quested_backend.Domain.Repositories
         /// </summary>
         /// <param name="id">int array representing primary key</param>
         /// <returns>answer entity if primary key is valid, null otherwise</returns>
-        new Task<PupilInCourseAnswersQuestion> GetAnswerByPrimaryKey(params int[] id);
+        Task<PupilInCourseAnswersQuestion> GetAnswerByPrimaryKey(params int[] id);
     }
 }

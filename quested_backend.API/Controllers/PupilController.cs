@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using quested_backend.Domain.Requests.Pupil;
+using quested_backend.Domain.Requests_DTOs.Pupil;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
 
@@ -44,13 +44,20 @@ namespace quested_backend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null );
         }
 
-        [HttpPut("{id:int}")]
-        [PupilExists]
-        public async Task<IActionResult> Put(int id, EditPupilRequest pupilRequest)
+        [HttpPut]
+        public async Task<IActionResult> Put(EditPupilRequest pupilRequest)
         {
-            pupilRequest.Id = id;
             var result = await _pupilService.EditPupilAsync(pupilRequest);
             return Ok(result);
+        }
+        
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        [PupilExists]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedPupil = await _pupilService.DeletePupilById(id);
+            return Ok(deletedPupil);
         }
     }
 }

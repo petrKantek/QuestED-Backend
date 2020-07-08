@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.Course;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Course;
+using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
 {
@@ -50,6 +50,8 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="request">object containing new data to be edited in existing course</param>
         /// <returns>edited course</returns>
         Task<CourseResponse> EditCourseAsync(EditCourseRequest request);
+        
+        Task<CourseResponse> DeleteCourseById(int courseId);
 
         /// <summary>
         /// Creates a dictionary where keys are pupil's IDs and values are lists of their scores

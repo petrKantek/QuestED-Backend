@@ -1,6 +1,7 @@
 ﻿using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.Teacher;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Teacher;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers.Interfaces
 {
@@ -24,5 +25,7 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <param name="teacher"></param>
         /// <returns>teacher response</returns>
         TeacherResponse Map(Teacher teacher);
+        
+        TeacherBasicInfo MapAdditionalInfo(Teacher teacher);
     }
 }

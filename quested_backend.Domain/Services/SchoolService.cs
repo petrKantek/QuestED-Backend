@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.School;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.School;
+using quested_backend.Domain.Responses_DTOs;
 using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services
@@ -34,9 +33,8 @@ namespace quested_backend.Domain.Services
         public async Task<SchoolResponse> GetSchoolAsync(GetSchoolRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
+                throw new ArgumentNullException($"Request is null");
+           
             var result = await _schoolRepository.GetByIdAsync(request.Id);
             return _schoolMapper.Map(result);
         }
@@ -44,9 +42,8 @@ namespace quested_backend.Domain.Services
         public async Task<SchoolResponse> ReadOnlyGetSchoolAsync(GetSchoolRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
+                throw new ArgumentNullException($"Request is null");
+            
             var result = await _schoolRepository.ReadOnlyGetByIdAsync(request.Id);
             return _schoolMapper.Map(result);
         }
@@ -67,14 +64,14 @@ namespace quested_backend.Domain.Services
             var existingRecord = _schoolRepository.ReadOnlyGetByIdAsync(request.Id);
             if (existingRecord == null)
             {
-                throw new ArgumentException($"Entity with {request.Id} is not present");
+                throw new ArgumentException($"School with {request.Id} does not exist in the database");
             }
             
             var entity = _schoolMapper.Map(request);
             var result = _schoolRepository.Update(entity);
             
             await _schoolRepository.UnitOfWork.SaveChangesAsync();
-            return _schoolMapper.Map(result); 
+            return _schoolMapper.Map(await _schoolRepository.ReadOnlyGetByIdAsync(result.Id)); 
         }
 
         public async Task AddTeacherToSchool(AddTeacherToSchoolRequest request)
@@ -84,6 +81,13 @@ namespace quested_backend.Domain.Services
             
             school.Teacher.Add(teacher);
             await _schoolRepository.UnitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<SchoolResponse> DeleteSchoolById(int schoolId)
+        {
+            var existingRecord = await _schoolRepository.DeleteById(schoolId);
+            await _schoolRepository.UnitOfWork.SaveChangesAsync();
+            return _schoolMapper.Map(existingRecord);
         }
     }
 }

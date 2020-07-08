@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.Teacher;
+using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Fixtures;
 using quested_backend.Fixtures.Extensions;
 using Shouldly;
@@ -73,12 +73,13 @@ namespace quested_backend.API.Tests.ControllersTests
             {
                 Id = 1,
                 Firstname = "Daniel",
-                Lastname = "Diaz"
+                Lastname = "Diaz",
+                SchoolId = 1
             };
 
             var httpsContent = new StringContent(JsonConvert.SerializeObject(request),
                 Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/teachers/{request.Id}", httpsContent);
+            var response = await client.PutAsync("/api/teachers", httpsContent);
 
             response.ShouldNotBeNull();
             response.EnsureSuccessStatusCode();
@@ -86,6 +87,7 @@ namespace quested_backend.API.Tests.ControllersTests
             var responseContent = await response.Content.ReadAsStringAsync();
             var responseEntity = JsonConvert.DeserializeObject<Teacher>(responseContent);
 
+            responseEntity.ShouldNotBeNull();
             responseEntity.Firstname.ShouldBe("Daniel");
             responseEntity.Id.ShouldBe(1);
             responseEntity.Lastname.ShouldBe("Diaz");

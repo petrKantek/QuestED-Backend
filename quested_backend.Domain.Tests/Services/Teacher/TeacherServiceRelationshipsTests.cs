@@ -1,5 +1,5 @@
 using System;
-using quested_backend.Domain.Requests.Teacher;
+using quested_backend.Domain.Requests_DTOs.Teacher;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;

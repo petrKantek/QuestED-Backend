@@ -5,7 +5,7 @@ using quested_backend.Domain.Entities;
 namespace quested_backend.Domain.Repositories
 {
     /// <summary>
-    /// Specific question repository.
+    /// Specific Question repository.
     /// </summary>
     public interface IQuestionRepository : IRepository<Question>
     {

@@ -24,7 +24,8 @@ namespace quested_backend.Domain.Extensions
                 .AddSingleton<IClassMapper, ClassMapper>()
                 .AddSingleton<ISchoolMapper, SchoolMapper>()
                 .AddSingleton<ITeacherMapper, TeacherMapper>()
-                .AddSingleton<ICourseMapper, CourseMapper>();
+                .AddSingleton<ICourseMapper, CourseMapper>()
+                .AddSingleton<IQuestionMapper, QuestionMapper>();
 
             return services;
         }

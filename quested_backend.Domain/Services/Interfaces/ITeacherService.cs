@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Requests.Teacher;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Requests_DTOs.Teacher;
+using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
 {
@@ -62,15 +62,14 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="request">object containing information about pupil whose score will be edited</param>
         Task EditScore(EditScoreRequest request);
         
+        Task<TeacherResponse> DeleteTeacherById(int teacherId);
+        
         /// <summary>
         /// Adds existing pupil to class. 
         /// </summary>
         /// <param name="request">object containing information about pupil that will be assigned to a class</param>
         Task AddPupilToClass(AddPupilToClassRequest request);
         
-        //TODO Task GetPupilsScores(int teacherId, int classId);
         //TODO Task ImportLogFile();
-        //TODO ChangeRFID();
-        //TODO GetStatistics();
     }
 }

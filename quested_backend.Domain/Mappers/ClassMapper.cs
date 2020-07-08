@@ -1,19 +1,14 @@
-﻿using quested_backend.Domain.Entities;
+﻿using System.Linq;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
-using quested_backend.Domain.Requests.Class;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Class;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers
 {
     public class ClassMapper : IClassMapper
     {
-        private readonly ITeacherMapper _teacherMapper;
-        
-        public ClassMapper(ITeacherMapper teacherMapper)
-        {
-            _teacherMapper = teacherMapper;
-        }
-
         public Class Map(AddClassRequest request)
         {
             if (request == null) return null;
@@ -21,7 +16,7 @@ namespace quested_backend.Domain.Mappers
             var _class = new Class
             { 
                 Name = request.Name,
-                TeacherId = request.TeacherId,
+                TeacherId = request.TeacherId
             };
 
             return _class;
@@ -36,7 +31,6 @@ namespace quested_backend.Domain.Mappers
                 Id = request.Id,
                 Name = request.Name,
                 TeacherId = request.TeacherId,
-               
             };
 
             return _class;
@@ -50,9 +44,30 @@ namespace quested_backend.Domain.Mappers
             {
                 Id = _class.Id,
                 Name = _class.Name,
-                TeacherId = _class.TeacherId,
-                TeacherResponse = _teacherMapper.Map(_class.Teacher),
-                PupilInClass = _class.PupilInClass
+                TaughtBy = new TeacherBasicInfo
+                {
+                    Id = _class.Teacher?.Id,
+                    Firstname = _class.Teacher?.Firstname,
+                    Lastname = _class.Teacher?.Lastname
+                },
+                PupilInClass = _class.PupilInClass.Select(x => new PupilBasicInfo
+                {
+                    Id = x.Pupil?.Id,
+                    Firstname = x.Pupil?.Firstname
+                })
+            };
+
+            return classResponse;
+        }
+
+        public ClassBasicInfo MapAdditionalInfo(Class _class)
+        {
+            if (_class == null) return null;
+            
+            var classResponse = new ClassBasicInfo()
+            {
+                Id = _class.Id,
+                Name = _class.Name,
             };
 
             return classResponse;

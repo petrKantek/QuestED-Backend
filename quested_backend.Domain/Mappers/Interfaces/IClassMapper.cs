@@ -1,6 +1,7 @@
 ﻿using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.Class;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Class;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers.Interfaces
 {
@@ -26,5 +27,7 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <param name="_class"></param>
         /// <returns>class response</returns>
         ClassResponse Map(Class _class);
+        
+        ClassBasicInfo MapAdditionalInfo(Class _class);
     }
 }

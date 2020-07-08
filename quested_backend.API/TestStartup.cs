@@ -1,25 +1,15 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace quested_backend
 {
+    /// <summary>
+    /// This class used to be a startup class for testing containing mock authorization.
+    /// The functionality was then transferred to InMemoryApplicationFactory.cs. It is only kept for future
+    /// adjustments.
+    /// </summary>
     public class TestStartup : Startup
     {
         public TestStartup(IConfiguration configuration) : base(configuration)
             { }
-
-        // protected override void AddTokenAuthentication(IServiceCollection services, IConfiguration configuration)
-        // {
-        //     // services.AddAuthentication( options =>
-        //     // {
-        //     //     options.DefaultAuthenticateScheme = "Test Scheme";
-        //     //     options.DefaultChallengeScheme = "Test Scheme";
-        //     // }).AddTestAuth(o => { });
-        //     
-        //     // services.AddAuthentication("Test")
-        //     //     .AddScheme<AuthenticationSchemeOptions, TestAuthenticationHandler>(
-        //     //         "Test", options => { });
-        // }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.Class;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Class;
+using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
 {
@@ -47,7 +47,7 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="request">object containing new data to be edited in existing class</param>
         /// <returns>edited class</returns>
         Task<ClassResponse> EditClassAsync(EditClassRequest request);
-        
-        //TODO soft deletion
+
+        Task<ClassResponse> DeleteClassById(int classId);
     }
 }

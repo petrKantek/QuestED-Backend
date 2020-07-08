@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.Course;
+using quested_backend.Domain.Requests_DTOs.Course;
 using quested_backend.Domain.Services;
 using quested_backend.Fixtures;
 using quested_backend.Infrastructure.Repositories;
@@ -47,8 +47,8 @@ namespace Domain.Tests.Services.Course
             result.ShouldNotBeNull();
             result.Id.ShouldBe(id);
             result.Name.ShouldBe("math");
-            result.TeacherId.ShouldBe(3);
-            result.SeasonId.ShouldBe(1);
+//            result.TaughtBy.Id.ShouldBe(3);
+ //           result.TaughtInSeason.ShouldBe("Spring Summer 2020");
         }
         
         [Fact]
@@ -60,19 +60,7 @@ namespace Domain.Tests.Services.Course
                 .ReadOnlyGetCourseAsync(null).
                 ShouldThrow<ArgumentNullException>();
         }
-        
-        [Theory]
-        [InlineData(-2)]
-        public void getCourse_with_negative_id_should_throw_exception(int id)
-        {
-            var sut = new CourseService(_courseRepository, _courseMapper);
-            var courseRequest = new GetCourseRequest() { Id = id };
-        
-            sut.
-                ReadOnlyGetCourseAsync(courseRequest).
-                ShouldThrow<ArgumentException>();
-        }
-        
+
         [Fact]
         public async Task addCourse_should_add_correct_entity()
         {
@@ -90,8 +78,8 @@ namespace Domain.Tests.Services.Course
             
             addedCourse.ShouldNotBeNull();
             addedCourse.Name.ShouldBe(course.Name);
-            addedCourse.TeacherId.ShouldBe(course.TeacherId);
-            addedCourse.SeasonId.ShouldBe(course.SeasonId);
+//            addedCourse.TaughtBy.Id.ShouldBe(course.TeacherId);
+//            addedCourse.TaughtInSeason.ShouldBe("Spring Summer 2020");
         }
 
         [Fact]
@@ -113,8 +101,8 @@ namespace Domain.Tests.Services.Course
             editedCourse.ShouldNotBeNull();
             editedCourse.Id.ShouldBe(editCourseRequest.Id);
             editedCourse.Name.ShouldBe(editCourseRequest.Name);
-            editedCourse.SeasonId.ShouldBe(editCourseRequest.SeasonId);
-            editedCourse.TeacherId.ShouldBe(editCourseRequest.TeacherId);
+//            editedCourse.TaughtInSeason.ShouldBe("Spring Summer 2020");
+ //           editedCourse.TaughtBy.Id.ShouldBe(editCourseRequest.TeacherId);
         }
     }
 }

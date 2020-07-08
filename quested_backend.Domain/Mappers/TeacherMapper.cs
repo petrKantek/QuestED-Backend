@@ -1,19 +1,14 @@
-﻿using quested_backend.Domain.Entities;
+﻿using System.Linq;
+using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
-using quested_backend.Domain.Requests.Teacher;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Teacher;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers
 {
     public class TeacherMapper : ITeacherMapper
     {
-        private readonly ISchoolMapper _schoolMapper;
-        
-        public TeacherMapper(ISchoolMapper schoolMapper)
-        {
-            _schoolMapper = schoolMapper;
-        }
-
         public Teacher Map(AddTeacherRequest request)
         {
             if (request == null) return null;
@@ -52,9 +47,32 @@ namespace quested_backend.Domain.Mappers
                 Id = teacher.Id,
                 Firstname = teacher.Firstname,
                 Lastname = teacher.Lastname,
-                SchoolId = teacher.SchoolId,
-                SchoolResponse = _schoolMapper.Map(teacher.School),
-                
+                TeachesCourses = teacher.Course
+                    .Select(x => new CourseBasicInfo
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    }),
+                TeachesInSchool = new SchoolBasicInfo
+                {
+                    Id = teacher.School?.Id,
+                    Name = teacher.School?.Name,
+                    Country = teacher.School?.Country
+                }
+            };
+
+            return teacherResponse;
+        }
+
+        public TeacherBasicInfo MapAdditionalInfo(Teacher teacher)
+        {
+            if (teacher == null) return null;
+            
+            var teacherResponse = new TeacherBasicInfo()
+            {
+                Id = teacher.Id,
+                Firstname = teacher.Firstname,
+                Lastname = teacher.Lastname,
             };
 
             return teacherResponse;

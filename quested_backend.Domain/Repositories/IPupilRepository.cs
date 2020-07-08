@@ -3,7 +3,7 @@
 namespace quested_backend.Domain.Repositories
 {
     /// <summary>
-    /// Specific pupil repository
+    /// Specific Pupil repository
     /// </summary>
     public interface IPupilRepository : IRepository<Pupil>
         { }

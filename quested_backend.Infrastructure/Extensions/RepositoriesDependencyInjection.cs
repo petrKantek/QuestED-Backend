@@ -20,7 +20,7 @@ namespace quested_backend.Infrastructure.Extensions
                 .AddScoped<IQuestionRepository, QuestionRepository>()
                 .AddScoped<ISchoolRepository, SchoolRepository>()
                 .AddScoped<ITeacherRepository, TeacherRepository>()
-                .AddScoped<IRepository<Class>, EntityFrameworkRepository<Class>>()
+                .AddScoped<IClassRepository, ClassRepository>()
                 .AddScoped<IUserRepository, UserRepository>();
 
             return services;

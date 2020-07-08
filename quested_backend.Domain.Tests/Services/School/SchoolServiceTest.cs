@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.School;
+using quested_backend.Domain.Requests_DTOs.School;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;
@@ -54,18 +54,7 @@ namespace Domain.Tests.Services.School
                 .ReadOnlyGetSchoolAsync(null).
                 ShouldThrow<ArgumentNullException>();
         }
-        
-        [Theory]
-        [InlineData(-2)]
-        public void getSchool_with_negative_id_should_throw_exception(int id)
-        {
-            var schoolRequest = new GetSchoolRequest { Id = id };
-        
-            _sut.
-                ReadOnlyGetSchoolAsync(schoolRequest).
-                ShouldThrow<ArgumentException>();
-        }
-        
+
         [Fact]
         public async Task addSchool_should_add_correct_entity()
         {
@@ -73,7 +62,6 @@ namespace Domain.Tests.Services.School
             {
                 Name = "Angewandte",    
                 Country = "Germany",
-                SchoolOwnsSeasonIds = null,
                 TeacherIds = null
             };
         

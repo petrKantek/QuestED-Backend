@@ -14,6 +14,7 @@ namespace quested_backend.Fixtures
         public readonly ITeacherMapper TeacherMapper;
         public readonly IClassMapper ClassMapper;
         public readonly ICourseMapper CourseMapper;
+        
 
         /// <summary>
         /// Produces TestQuestedContexts
@@ -28,9 +29,9 @@ namespace quested_backend.Fixtures
             ContextInstance = new TestQuestedContext(contextOptions);
             PupilMapper = new PupilMapper();
             SchoolMapper = new SchoolMapper();
-            TeacherMapper = new TeacherMapper(SchoolMapper);
-            ClassMapper = new ClassMapper(TeacherMapper);
-            CourseMapper = new CourseMapper(); //TODO Properly define course mapper
+            TeacherMapper = new TeacherMapper();
+            ClassMapper = new ClassMapper();
+            CourseMapper = new CourseMapper();
         }
         
         /// <summary>

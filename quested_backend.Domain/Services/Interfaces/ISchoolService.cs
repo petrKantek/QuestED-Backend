@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.School;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.School;
+using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
 {
@@ -54,7 +54,6 @@ namespace quested_backend.Domain.Services.Interfaces
         /// <param name="request">object specifying which teacher to assign to a school</param>
         Task AddTeacherToSchool(AddTeacherToSchoolRequest request);
         
-        
-        //TODO soft deletion
+        Task<SchoolResponse> DeleteSchoolById(int schoolId);
     }
 }

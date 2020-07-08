@@ -24,7 +24,7 @@ namespace quested_backend.Infrastructure.Repositories
 
         public TEntity Update(TEntity entity)
         {
-            _context.Set<TEntity>().Update(entity);
+             _context.Set<TEntity>().Update(entity);
             return entity;
         }
 
@@ -54,10 +54,17 @@ namespace quested_backend.Infrastructure.Repositories
             _context.Set<TEntity>().Remove(entity);
         }
 
-        public void DeleteById(int id)
+        public async Task<TEntity> DeleteById(int id)
         {
-            var entity = GetByIdAsync(id);
-            Delete(entity.Result);
+            var entity = await GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                throw new ArgumentException("Entity with ID {id} does not exist in the database");
+            }
+
+            Delete(entity);
+            return entity;
         }
     }
 }

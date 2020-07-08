@@ -1,6 +1,7 @@
 ﻿using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Responses_DTOs;
+using quested_backend.Domain.Responses_DTOs.AdditionalInfoResponses;
 
 namespace quested_backend.Domain.Mappers.Interfaces
 {
@@ -19,10 +20,12 @@ namespace quested_backend.Domain.Mappers.Interfaces
         /// <returns>pupil entity</returns>
         Pupil Map(EditPupilRequest request);
         /// <summary>
-        /// Maps pupil course to pupil response
+        /// Maps pupil entity to pupil response
         /// </summary>
-        /// <param name="item"></param>
+        /// <param name="pupil"></param>
         /// <returns>pupil response</returns>
-        PupilResponse Map(Pupil item); 
+        PupilResponse Map(Pupil pupil); 
+        
+        PupilBasicInfo MapAdditionalInfo(Pupil pupil); 
     }
 }

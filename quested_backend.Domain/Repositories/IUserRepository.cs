@@ -5,7 +5,7 @@ using quested_backend.Domain.Entities;
 namespace quested_backend.Domain.Repositories
 {
     /// <summary>
-    /// 
+    /// User repository
     /// </summary>
     public interface IUserRepository
     {

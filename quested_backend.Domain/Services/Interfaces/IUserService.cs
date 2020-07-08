@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using quested_backend.Domain.Requests.User;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.User;
+using quested_backend.Domain.Responses_DTOs;
 
 namespace quested_backend.Domain.Services.Interfaces
 {

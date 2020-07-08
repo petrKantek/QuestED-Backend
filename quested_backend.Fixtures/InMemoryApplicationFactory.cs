@@ -15,16 +15,6 @@ namespace quested_backend.Fixtures
     public class InMemoryApplicationFactory<TStartup> :
         WebApplicationFactory<TStartup> where TStartup : class
     {
-        // protected override IWebHostBuilder CreateWebHostBuilder()
-        // {
-        //     var builder = new WebHostBuilder().UseStartup<TStartup>().UseTestServer()
-        //         .ConfigureAppConfiguration((hostingContext, config) =>
-        //         {
-        //             config.AddJsonFile("/home/petr/QuestED-Backend/quested_backend.API/appsettings.json", optional: false, reloadOnChange: false);
-        //         });
-        //     return builder;
-        // }
-
         /// <summary>
         /// Configures an http client running in separate process
         /// used for testing controllers
@@ -54,7 +44,7 @@ namespace quested_backend.Fixtures
                         new TestQuestedContext(dbOptions));
                     
                     services.Replace(ServiceDescriptor.Scoped(_ =>
-                        new UsersContextFactory().InMemoryUserManager)); //TODO not sure if correct
+                        new UsersContextFactory().InMemoryUserManager));
                     
                     var sp = services.BuildServiceProvider();
 

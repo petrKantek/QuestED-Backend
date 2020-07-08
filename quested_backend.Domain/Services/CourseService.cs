@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.Course;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Course;
+using quested_backend.Domain.Responses_DTOs;
 using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services
@@ -33,10 +33,8 @@ namespace quested_backend.Domain.Services
         public async Task<CourseResponse> GetCourseAsync(GetCourseRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
-            
+                throw new ArgumentNullException($"Request is null");
+
             var result = await _courseRepository.GetByIdAsync(request.Id);
             return _courseMapper.Map(result);
         }
@@ -44,10 +42,8 @@ namespace quested_backend.Domain.Services
         public async Task<CourseResponse> ReadOnlyGetCourseAsync(GetCourseRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
-            
+                throw new ArgumentNullException($"Request is null");
+
             var result = await _courseRepository.ReadOnlyGetByIdAsync(request.Id);
             return _courseMapper.Map(result);
         }
@@ -66,14 +62,22 @@ namespace quested_backend.Domain.Services
             var existingRecord = _courseRepository.ReadOnlyGetByIdAsync(request.Id);
             if (existingRecord == null)
             {
-                throw new ArgumentException($"Entity with {request.Id} is not present in the database");
+                throw new ArgumentException($"Course with ID {request.Id} does not exist in the database");
             }
             
             var editedCourse = _courseMapper.Map(request);
             var result = _courseRepository.Update(editedCourse);
 
             await _courseRepository.UnitOfWork.SaveChangesAsync();
-            return _courseMapper.Map(result);
+            return _courseMapper.Map(await _courseRepository.ReadOnlyGetByIdAsync(result.Id));
+        }
+
+        public async Task<CourseResponse> DeleteCourseById(int courseId)
+        {
+            var existingRecord = await _courseRepository.DeleteById(courseId);
+            await _courseRepository.UnitOfWork.SaveChangesAsync();
+
+            return _courseMapper.Map(existingRecord);
         }
 
         public async Marks GetScoresOfAllPupils(int courseId)

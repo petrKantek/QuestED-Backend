@@ -43,7 +43,7 @@ namespace quested_backend.Infrastructure.Tests.CourseRepositoryTests
             result.Id.ShouldBe(id);
             result.Name.ShouldBe("programming");
             result.TeacherId.ShouldBe(2);
-            result.SeasonId.ShouldBe(1);
+            result.CourseId.ShouldBe(1);
         }
         
         [Fact]
@@ -54,8 +54,8 @@ namespace quested_backend.Infrastructure.Tests.CourseRepositoryTests
                 Id = 4,
                 Name = "C++",
                 TeacherId = 2,
-                SeasonId = 1,
-                Season = null,
+                CourseId = 1,
+                CourseNavigation = null,
                 Teacher = null,
                 PupilInCourse = null
             };
@@ -69,7 +69,7 @@ namespace quested_backend.Infrastructure.Tests.CourseRepositoryTests
             addedCourse.ShouldNotBeNull();
             addedCourse.Id.ShouldBe(testCourse.Id);
             addedCourse.Name.ShouldBe(testCourse.Name);
-            addedCourse.SeasonId.ShouldBe(testCourse.SeasonId);
+            addedCourse.CourseId.ShouldBe(testCourse.CourseId);
             addedCourse.TeacherId.ShouldBe(testCourse.TeacherId);
         }
         
@@ -81,8 +81,8 @@ namespace quested_backend.Infrastructure.Tests.CourseRepositoryTests
                 Id = 1,
                 Name = "Statistics",
                 TeacherId = 3,
-                SeasonId = 1,
-                Season = null,
+                CourseId = 1,
+                CourseNavigation = null,
                 Teacher = null,
                 PupilInCourse = null
             };
@@ -93,7 +93,7 @@ namespace quested_backend.Infrastructure.Tests.CourseRepositoryTests
             updatedCourse.Id.ShouldBe(testCourse.Id);
             updatedCourse.Name.ShouldBe(testCourse.Name);
             updatedCourse.TeacherId.ShouldBe(testCourse.TeacherId);
-            updatedCourse.SeasonId.ShouldBe(testCourse.SeasonId);
+            updatedCourse.CourseId.ShouldBe(testCourse.CourseId);
         }
     }
 }

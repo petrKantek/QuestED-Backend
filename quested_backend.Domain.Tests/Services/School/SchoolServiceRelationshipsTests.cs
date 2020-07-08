@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.School;
+using quested_backend.Domain.Requests_DTOs.School;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Fixtures;

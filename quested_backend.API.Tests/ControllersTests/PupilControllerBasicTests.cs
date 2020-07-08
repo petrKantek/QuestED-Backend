@@ -1,11 +1,9 @@
 ﻿using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using quested_backend.Domain.Entities;
-using quested_backend.Domain.Requests.Pupil;
+using quested_backend.Domain.Requests_DTOs.Pupil;
 using quested_backend.Fixtures;
 using Shouldly;
 using Xunit;
@@ -51,8 +49,8 @@ namespace quested_backend.API.Tests.ControllersTests
             var request = new AddPupilRequest
             {
                 Firstname = "Miroslav",
-                PupilInClassIds = null,
-                PupilInCourseIds = null
+                // PupilInClassIds = null,
+                // PupilInCourseIds = null
             };
 
             var client = _factory.CreateClient();
@@ -74,13 +72,13 @@ namespace quested_backend.API.Tests.ControllersTests
             {
                 Id = 2,
                 Firstname = "Jirka",
-                PupilInClassIds = null,
-                PupilInCourseIds = null
+                // PupilInClassIds = null,
+                // PupilInCourseIds = null
             };
 
             var httpsContent = new StringContent(JsonConvert.SerializeObject(request),
                 Encoding.UTF8, "application/json");
-            var response = await client.PutAsync($"/api/pupils/{request.Id}", httpsContent);
+            var response = await client.PutAsync("/api/pupils", httpsContent);
 
             response.ShouldNotBeNull();
             response.EnsureSuccessStatusCode();

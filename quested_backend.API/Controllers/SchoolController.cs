@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using quested_backend.Domain.Requests.School;
-using quested_backend.Domain.Services;
+using quested_backend.Domain.Requests_DTOs.School;
 using quested_backend.Domain.Services.Interfaces;
 using quested_backend.Filters;
 
@@ -44,13 +43,20 @@ namespace quested_backend.Controllers
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, null );
         }
 
-        [HttpPut("{id:int}")]
-        [SchoolExists]
-        public async Task<IActionResult> Put(int id, EditSchoolRequest schoolRequest)
+        [HttpPut]
+        public async Task<IActionResult> Put(EditSchoolRequest schoolRequest)
         {
-            schoolRequest.Id = id;
             var result = await _schoolService.EditSchoolAsync(schoolRequest);
             return Ok(result);
+        }
+        
+        [HttpDelete("{id:int}")]
+        [Authorize(Roles = "Admin")]
+        [SchoolExists]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedSchool = await _schoolService.DeleteSchoolById(id);
+            return Ok(deletedSchool);
         }
     }
 }

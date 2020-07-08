@@ -18,8 +18,10 @@ namespace quested_backend.Domain.Entities
         
         /* relationships */
         public int TeacherId { get; set; }
-        public int SeasonId { get; set; }
-        public virtual Season Season { get; set; }
+        
+        public int CourseId { get; set; }
+        
+        public virtual Season CourseNavigation { get; set; }
         public virtual Teacher Teacher { get; set; }
         public virtual ICollection<PupilInCourse> PupilInCourse { get; set; }
     }

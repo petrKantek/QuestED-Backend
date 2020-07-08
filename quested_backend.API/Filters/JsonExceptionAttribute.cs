@@ -10,7 +10,8 @@ using quested_backend.Exceptions;
 namespace quested_backend.Filters
 {
     /// <summary>
-    /// General construction of user-defined attributes
+    /// User-defined attribute, generates a JSON exception with
+    /// many useful information
     /// </summary>
     public class JsonExceptionAttribute : TypeFilterAttribute
     {

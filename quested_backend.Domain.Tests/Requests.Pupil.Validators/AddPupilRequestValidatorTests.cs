@@ -1,6 +1,6 @@
 ﻿using FluentValidation.TestHelper;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Requests.Pupil.Validators;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Requests_DTOs.Pupil.Validators;
 using Xunit;
 
 namespace Domain.Tests.Requests.Pupil.Validators

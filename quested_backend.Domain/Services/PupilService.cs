@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
-using quested_backend.Domain.Requests.Pupil;
-using quested_backend.Domain.Responses;
+using quested_backend.Domain.Requests_DTOs.Pupil;
+using quested_backend.Domain.Responses_DTOs;
 using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Services
@@ -31,9 +30,8 @@ namespace quested_backend.Domain.Services
         public async Task<PupilResponse> GetPupilAsync(GetPupilRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
+                throw new ArgumentNullException($"Request is null");
+            
             var result = await _pupilRepository.GetByIdAsync(request.Id);
             return _pupilMapper.Map(result);
         }
@@ -41,9 +39,8 @@ namespace quested_backend.Domain.Services
         public async Task<PupilResponse> ReadOnlyGetPupilAsync(GetPupilRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
-            if (request.Id <= 0) 
-                throw new ArgumentException($"Entity has an invalid ID: {request.Id} ");
+                throw new ArgumentNullException($"Request is null");
+           
             var result = await _pupilRepository.ReadOnlyGetByIdAsync(request.Id);
             return _pupilMapper.Map(result);
         }
@@ -51,7 +48,7 @@ namespace quested_backend.Domain.Services
         public async Task<PupilResponse> AddPupilAsync(AddPupilRequest request)
         {
             if (request == null) 
-                throw new ArgumentNullException($"Entity is null");
+                throw new ArgumentNullException($"Request is null");
             
             var pupil = _pupilMapper.Map(request);
             var result = _pupilRepository.Create(pupil);
@@ -65,16 +62,21 @@ namespace quested_backend.Domain.Services
             var existingRecord = _pupilRepository.ReadOnlyGetByIdAsync(request.Id);
             if (existingRecord == null)
             {
-                throw new ArgumentException($"Entity with {request.Id} is not present");
+                throw new ArgumentException($"Pupil with ID {request.Id} does not exist in the database");
             }
             
             var entity = _pupilMapper.Map(request);
             var result = _pupilRepository.Update(entity);
             
             await _pupilRepository.UnitOfWork.SaveChangesAsync();
-            return _pupilMapper.Map(result); 
+            return _pupilMapper.Map(await _pupilRepository.ReadOnlyGetByIdAsync(result.Id)); 
         }
-        
-        // public async Task<IEnumerable<int>> Get
+
+        public async Task<PupilResponse> DeletePupilById(int pupilId)
+        {
+            var existingRecord = await _pupilRepository.DeleteById(pupilId);
+            await _pupilRepository.UnitOfWork.SaveChangesAsync();
+            return _pupilMapper.Map(existingRecord);
+        }
     }
 }

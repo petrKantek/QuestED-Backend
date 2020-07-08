@@ -73,10 +73,11 @@ namespace quested_backend.Infrastructure.Tests.PupilRepositoryTests
                 PupilInClass = null,
                 PupilInCourse = null,
             };
-
-               var result =  _sut.Update(testPupil);
-
-           result.Firstname.ShouldBe("Tomas");
+            
+            var result =  _sut.Update(testPupil);
+            _sut.UnitOfWork.SaveEntitiesAsync();
+            result.ShouldNotBeNull();
+            result.Firstname.ShouldBe("Tomas");
         }
     }
 }

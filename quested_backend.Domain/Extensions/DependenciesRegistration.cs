@@ -38,7 +38,7 @@ namespace quested_backend.Domain.Extensions
         /// <returns>Di container</returns>
         public static IServiceCollection AddRelatedEntitiesValidator(this IServiceCollection services)
         {
-            services.AddSingleton<IRelatedEntitiesValidator, RelatedEntitiesValidator>();
+            services.AddScoped<IRelatedEntitiesValidator, RelatedEntitiesValidator>();
 
             return services;
         }

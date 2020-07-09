@@ -98,7 +98,8 @@ namespace quested_backend.Domain.Services
 
             return marks
                 .ToDictionary(pupil => 
-                    pupil.Key, pupil => pupil.Value.Average());
+                    pupil.Key, pupil => 
+                    pupil.Value.Count != 0 ? pupil.Value.Average() : 0);
         }
     }
 }

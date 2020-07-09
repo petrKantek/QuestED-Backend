@@ -66,7 +66,7 @@ namespace quested_backend.Domain.Services
         }
 
         /// <summary>
-        /// Bruuh I am on fire
+        /// Generates security token
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>

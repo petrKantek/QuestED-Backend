@@ -1,8 +1,4 @@
-using System.Threading;
-using System.Threading.Tasks;
 using FluentValidation;
-using quested_backend.Domain.Requests_DTOs.Teacher;
-using quested_backend.Domain.Services.Interfaces;
 
 namespace quested_backend.Domain.Requests_DTOs.School.Validators
 {

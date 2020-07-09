@@ -8,24 +8,12 @@ namespace quested_backend.Domain.Requests_DTOs.Course.Validators
 {
     public class AddCourseRequestValidator : AbstractValidator<AddCourseRequest>
     {
-        private readonly ITeacherService _teacherService;
-        public AddCourseRequestValidator(ITeacherService teacherService)
+        public AddCourseRequestValidator(IRelatedEntitiesValidator validator)
         {
-            _teacherService = teacherService;
             RuleFor(x => x.Name).NotEmpty().MaximumLength(45);
             RuleFor(x => x.SeasonId).NotEmpty().GreaterThan(0);
             RuleFor(x => x.TeacherId).NotEmpty().GreaterThan(0)
-                .MustAsync(TeacherExists).WithMessage("Teacher must exist in the database");
-        }
-
-        private async Task<bool> TeacherExists(int teacherId, CancellationToken cancellationToken)
-        {
-            var teacher = await _teacherService.GetTeacherAsync(new GetTeacherRequest
-            {
-                Id = teacherId
-            });
-
-            return teacher != null;
+                .MustAsync(validator.TeacherExists).WithMessage("Teacher must exist in the database");
         }
     }
 }

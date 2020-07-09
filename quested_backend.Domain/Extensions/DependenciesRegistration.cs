@@ -5,6 +5,7 @@ using quested_backend.Domain.Entities;
 using quested_backend.Domain.Mappers;
 using quested_backend.Domain.Mappers.Interfaces;
 using quested_backend.Domain.Repositories;
+using quested_backend.Domain.Requests_DTOs;
 using quested_backend.Domain.Services;
 using quested_backend.Domain.Services.Interfaces;
 
@@ -26,6 +27,18 @@ namespace quested_backend.Domain.Extensions
                 .AddSingleton<ITeacherMapper, TeacherMapper>()
                 .AddSingleton<ICourseMapper, CourseMapper>()
                 .AddSingleton<IQuestionMapper, QuestionMapper>();
+
+            return services;
+        }
+
+        /// <summary>
+        /// Registers related entities validator to the DI container
+        /// </summary>
+        /// <param name="services">DI container</param>
+        /// <returns>Di container</returns>
+        public static IServiceCollection AddRelatedEntitiesValidator(this IServiceCollection services)
+        {
+            services.AddSingleton<IRelatedEntitiesValidator, RelatedEntitiesValidator>();
 
             return services;
         }

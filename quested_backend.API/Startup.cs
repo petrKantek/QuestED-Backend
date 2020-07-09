@@ -38,6 +38,7 @@ namespace quested_backend
                 .AddTokenAuthentication(Configuration)
                 .AddMappers()
                 .AddServices()
+                .AddRelatedEntitiesValidator()
                 .AddControllers()
                 .AddValidation()
                 .AddNewtonsoftJson(options =>

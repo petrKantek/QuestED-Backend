@@ -18,6 +18,10 @@ namespace quested_backend.Infrastructure.Repositories
             var courses = await _context.Set<Course>()
                 .Include(course => course.PupilInCourse)
                     .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                .Include(course => course.PupilInCourse)
+                    .ThenInclude(pupil => pupil.Pupil)
+                .Include(course => course.Teacher)
+                .Include(course => course.CourseNavigation)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -27,9 +31,13 @@ namespace quested_backend.Infrastructure.Repositories
         public new async Task<Course> GetByIdAsync(int courseId)
         {
            var course = await _context.Set<Course>()
-                           .Include(_course => _course.PupilInCourse)
-                               .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
-                           .FirstOrDefaultAsync(_course => _course.Id == courseId);
+               .Include(_course => _course.PupilInCourse)
+                    .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+               .Include(course => course.PupilInCourse)
+                    .ThenInclude(pupil => pupil.Pupil)
+               .Include(course => course.Teacher)
+               .Include(course => course.CourseNavigation)
+               .FirstOrDefaultAsync(_course => _course.Id == courseId);
            
             return course; 
         }
@@ -39,6 +47,10 @@ namespace quested_backend.Infrastructure.Repositories
             var course = await _context.Set<Course>()
                 .Include(_course => _course.PupilInCourse)
                     .ThenInclude(pupilInCourse => pupilInCourse.PupilInCourseAnswersQuestion)
+                .Include(course => course.PupilInCourse)
+                    .ThenInclude(pupil => pupil.Pupil)
+                .Include(course => course.Teacher)
+                .Include(course => course.CourseNavigation)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(_course => _course.Id == courseId);
            

@@ -16,6 +16,7 @@ namespace quested_backend.Infrastructure.Repositories
             var schools = await _context.Set<School>()
                 .Include(x => x.Teacher)
                 .Include(x => x.SchoolOwnsSeason)
+                    .ThenInclude(x => x.Season)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -27,6 +28,7 @@ namespace quested_backend.Infrastructure.Repositories
             var school = await _context.Set<School>()
                 .Include(x => x.Teacher)
                 .Include(x => x.SchoolOwnsSeason)
+                     .ThenInclude(x => x.Season)
                 .FirstOrDefaultAsync(x => x.Id == schoolId);
 
             return school;
@@ -37,6 +39,7 @@ namespace quested_backend.Infrastructure.Repositories
             var school = await _context.Set<School>()
                 .Include(x => x.Teacher)
                 .Include(x => x.SchoolOwnsSeason)
+                     .ThenInclude(x => x.Season)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(x => x.Id == schoolId);
 

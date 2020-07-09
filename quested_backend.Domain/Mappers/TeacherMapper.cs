@@ -47,7 +47,8 @@ namespace quested_backend.Domain.Mappers
                 Firstname = teacher.Firstname,
                 Lastname = teacher.Lastname,
                 TeachesCourses = teacher.Course.Select(HelperMapper.BasicMap),
-                TeachesInSchool = HelperMapper.BasicMap(teacher.School)
+                TeachesInSchool = HelperMapper.BasicMap(teacher.School),
+                TeachesClasses = teacher.Class.Select(HelperMapper.BasicMap)
             };
 
             return teacherResponse;

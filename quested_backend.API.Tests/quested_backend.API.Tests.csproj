@@ -23,7 +23,6 @@
     <ItemGroup>
       <ProjectReference Include="..\quested_backend.API\quested_backend.API.csproj" />
       <ProjectReference Include="..\quested_backend.Fixtures\quested_backend.Fixtures.csproj" />
-      <ProjectReference Include="..\WebApplication\WebApplication.csproj" />
     </ItemGroup>
 
 </Project>

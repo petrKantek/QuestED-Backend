@@ -1,0 +1,38 @@
+﻿[
+  {
+    "PupilId" : 1,
+    "ClassId" : 1,
+    "Pupil" : null,
+    "Class" : null
+  },
+  {
+    "PupilId" : 1,
+    "ClassId" : 2,
+    "Pupil" : null,
+    "Class" : null
+  },
+  {
+    "PupilId" : 2,
+    "ClassId" : 1,
+    "Pupil" : null,
+    "Class" : null
+  },
+  {
+    "PupilId" : 2,
+    "ClassId" : 2,
+    "Pupil" : null,
+    "Class" : null
+  },
+  {
+    "PupilId" : 3,
+    "ClassId" : 1,
+    "Pupil" : null,
+    "Class" : null
+  },
+  {
+    "PupilId" : 3,
+    "ClassId" : 2,
+    "Pupil" : null,
+    "Class" : null
+  }
+]

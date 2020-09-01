@@ -1,0 +1,20 @@
+﻿[
+  {
+    "SeasonId" : 1,
+    "SchoolId" : 1,
+    "Season" : null,
+    "School" : null
+  },
+  {
+    "SeasonId" : 1,
+    "SchoolId" : 2,
+    "Season" : null,
+    "School" : null
+  },
+  {
+    "SeasonId" : 1,
+    "SchoolId" : 3,
+    "Season" : null,
+    "School" : null
+  }
+]

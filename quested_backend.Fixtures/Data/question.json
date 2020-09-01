@@ -1,0 +1,42 @@
+﻿[
+  {
+    "id" : 1,
+    "max_points" : 5,
+    "EpisodeId" : 1,
+    "EpisodeSeasonId" : 1,
+    "Episode" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "id" : 2,
+    "max_points" : 10,
+    "EpisodeId" : 1,
+    "EpisodeSeasonId" : 1,
+    "Episode" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "id" : 3,
+    "max_points" : 15,
+    "EpisodeId" : 1,
+    "EpisodeSeasonId" : 1,
+    "Episode" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "id" : 4,
+    "max_points" : 10,
+    "EpisodeId" : 1,
+    "EpisodeSeasonId" : 1,
+    "Episode" : null,
+    "PupilInCourseAnswersQuestion" : null
+  },
+  {
+    "id" : 5,
+    "max_points" : 7,
+    "EpisodeId" : 1,
+    "EpisodeSeasonId" : 1,
+    "Episode" : null,
+    "PupilInCourseAnswersQuestion" : null
+  }
+]

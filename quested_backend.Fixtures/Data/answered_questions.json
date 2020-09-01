@@ -1,0 +1,152 @@
+﻿[
+  {
+    "PupilInCourseCourseId" : 1,
+    "PupilInCoursePupilId" : 1,
+    "QuestionId" : 1,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "5" ,
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 1,
+    "PupilInCoursePupilId" : 1,
+    "QuestionId" : 2,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "10",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 1,
+    "QuestionId" : 3,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "13",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 1,
+    "QuestionId" : 4,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "9",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 1,
+    "QuestionId" : 5,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "5",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 1,
+    "PupilInCoursePupilId" : 2,
+    "QuestionId" : 1,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "2", 
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 1,
+    "PupilInCoursePupilId" : 2,
+    "QuestionId" : 2,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "0",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 2,
+    "QuestionId" : 3,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "15",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 2,
+    "QuestionId" : 4,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "10",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 2,
+    "QuestionId" : 5,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "5",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 1,
+    "PupilInCoursePupilId" : 3,
+    "QuestionId" : 1,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "5",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 1,
+    "PupilInCoursePupilId" : 3,
+    "QuestionId" : 2,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "10",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 3,
+    "QuestionId" : 3,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "15",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 3,
+    "QuestionId" : 4,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "10",
+    "PupilInCourse" : null,
+    "Question" : null
+  },
+  {
+    "PupilInCourseCourseId" : 2,
+    "PupilInCoursePupilId" : 3,
+    "QuestionId" : 5,
+    "QuestionEpisodeId" :  1,
+    "QuestionEpisodeSeasonId" : 1,
+    "AchievedPoints" : "7",
+    "PupilInCourse" : null,
+    "Question" : null
+  }
+]

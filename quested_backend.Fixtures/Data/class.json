@@ -1,0 +1,23 @@
+﻿[
+  {
+    "id" : 1,
+    "name" : "C1",
+    "TeacherId" : 1,
+    "Teacher" : null ,
+    "PupilInClass" : null
+  },
+  {
+    "id" : 2,
+    "name" : "C2",
+    "TeacherId" : 2,
+    "Teacher" : null ,
+    "PupilInClass" : null
+  },
+  {
+    "id" : 3,
+    "name" : "C3",
+    "TeacherId" : 3,
+    "Teacher" : null ,
+    "PupilInClass" : null
+  }
+]
